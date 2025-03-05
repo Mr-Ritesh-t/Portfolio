@@ -131,7 +131,6 @@ const Contact = () => {
                       id="subject"
                       {...register("subject", { required: "Subject is required" })}
                      className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-brand-blue transition-all appearance-none"
-                     value=""
                     >
                       <option className='text-black' value="" disabled>Select a subject</option>
                       <option className='text-black' value="New Project">Need a website</option>
