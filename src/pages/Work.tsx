@@ -93,7 +93,7 @@ const Work = () => {
                 category="Web Development"
                 description=" Modern, Interactive Web Design A sleek and immersive website designed to showcase creative environments and experiences."
                 technologies={["HTML", "CSS", "JavaScript"]}
-                image="assets\Sundown.png"
+                image="https://i.postimg.cc/dtDVw6fG/Sundown.png"
                 date="2024"
                 className="animate-fade-in"
                 link="https://mr-ritesh-t.github.io/SunDown-clone/"
@@ -106,7 +106,7 @@ const Work = () => {
                 description="A sleek, immersive website to showcase creative environments with smooth animations and interactive UI components."
                 technologies={["HTML", "CSS", "JavaScript"]}
                 link="https://mr-ritesh-t.github.io/Works.studio-clone/"
-                image="assets\Work-studio.png"
+                image="https://i.postimg.cc/Jn1ryC1d/Work-studio.png"
                 date="2024"
                 className="animate-fade-in"
               />
@@ -116,10 +116,10 @@ const Work = () => {
                 category="Full-Stack Development"
                 description="A comprehensive web application for managing employees, featuring user authentication and CRUD operations."
                 technologies={["React", "Tailwind CSS"]}
-                image="src\components\Project-pic\Employee-management.png"
+                image="https://i.postimg.cc/MpszfQj1/Employee-management.png"
                 date="In Progress"
                 className="animate-fade-in"
-                link="assets\Employee-management.png"
+                link="https://ritesh-employee-managment-system.netlify.app/"
               />
 
             </div>
