@@ -141,7 +141,7 @@ const Resume = () => {
                     <div>
                       <div className="flex justify-between items-center">
                         <h3 className="text-xl font-medium">Clone of Sundown Studio</h3>
-                        <span className="text-white/70 text-sm">Dec 2023</span>
+                        <span className="text-white/70 text-sm">Dec 2024</span>
                       </div>
                       <ul className="list-disc list-inside text-white/80 space-y-1 ml-1 mt-2">
                         <li>Developed a sleek, immersive website to showcase creative environments.</li>
@@ -225,7 +225,7 @@ const Resume = () => {
                   <div className="flex flex-col md:flex-row gap-4">
                     <a href="mailto:riteshtayade68@gmail.com" className="flex items-center gap-2 text-white/80 hover:text-brand-blue transition-colors">
                       <Mail className="h-4 w-4" />
-                      riteshtayade68@gmail.com
+                      Riteshtayade68@gmail.com
                     </a>
                     <a href="tel:+918668740625" className="flex items-center gap-2 text-white/80 hover:text-brand-blue transition-colors">
                       <Phone className="h-4 w-4" />
@@ -233,7 +233,7 @@ const Resume = () => {
                     </a>
                     <a href="https://github.com/Mr-Ritesh-1" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-white/80 hover:text-brand-blue transition-colors">
                       <Github className="h-4 w-4" />
-                      github.com/Mr-Ritesh-1
+                      github.com/Mr-Ritesh-t
                     </a>
                     <a href="https://www.linkedin.com/in/mr-ritesh" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-white/80 hover:text-brand-blue transition-colors">
                       <Linkedin className="h-4 w-4" />

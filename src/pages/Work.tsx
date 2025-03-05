@@ -25,7 +25,7 @@ const Work = () => {
           <Linkedin className="h-5 w-5" />
         </a>
         <a 
-          href="https://twitter.com" 
+          href="https://x.com/RiteshTaya82223" 
           target="_blank" 
           rel="noopener noreferrer"
           className="text-white/60 hover:text-brand-blue transition-colors"
@@ -40,7 +40,7 @@ const Work = () => {
             <Instagram className="h-5 w-5" />
           </a>
         <a 
-          href="https://github.com/Mr-Ritesh-1" 
+          href="https://github.com/Mr-Ritesh-t" 
           target="_blank" 
           rel="noopener noreferrer"
           className="text-white/60 hover:text-brand-blue transition-colors"
@@ -88,14 +88,26 @@ const Work = () => {
 
           <section className="container mx-auto px-4 md:px-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+            <WorkCard 
+                title="Sundown Studio Website Clone" 
+                category="Web Development"
+                description=" Modern, Interactive Web Design A sleek and immersive website designed to showcase creative environments and experiences."
+                technologies={["HTML", "CSS", "JavaScript"]}
+                image="src\components\Project-pic\Sundown.png"
+                date="2024"
+                className="animate-fade-in"
+                link="https://mr-ritesh-t.github.io/SunDown-clone/"
+              />
+
+
               <WorkCard 
                 title="Work Studio Website Clone" 
                 category="Web Development"
                 description="A sleek, immersive website to showcase creative environments with smooth animations and interactive UI components."
-                technologies={["HTML", "CSS", "JavaScript", "React", "Tailwind CSS"]}
+                technologies={["HTML", "CSS", "JavaScript"]}
                 link="https://mr-ritesh-t.github.io/Works.studio-clone/"
-                image="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=800&h=500"
-                date="In Progress"
+                image="src\components\Project-pic\Work-studio.png"
+                date="2024"
                 className="animate-fade-in"
               />
               
@@ -104,19 +116,10 @@ const Work = () => {
                 category="Full-Stack Development"
                 description="A comprehensive web application for managing employees, featuring user authentication and CRUD operations."
                 technologies={["React", "Tailwind CSS"]}
-                image="https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=800&h=500"
-                date="2023"
+                image="src\components\Project-pic\Employee-management.png"
+                date="In Progress"
                 className="animate-fade-in"
-              />
-
-              <WorkCard 
-                title="Food Price Comparison Website" 
-                category="Web Development"
-                description="A website that compares food prices, delivery time, and discounts across multiple food delivery apps."
-                technologies={["Planned"]}
-                image="https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?auto=format&fit=crop&w=800&h=500"
-                date="Planned"
-                className="animate-fade-in"
+                link="https://ritesh-employee-managment-system.netlify.app/"
               />
 
             </div>
@@ -175,7 +178,7 @@ const Work = () => {
               <div className="max-w-2xl mx-auto text-center">
                 <h2 className="text-3xl md:text-4xl font-medium mb-6">Interested in working together?</h2>
                 <p className="text-white/80 mb-8">
-                  Let's discuss how we can collaborate on your next project. I'm always open to new opportunities and challenges.
+                Need a website or want to hire me? Let's bring your idea to life! I'm always open to new opportunities and challenges. Get in touch.
                 </p>
                 <Link 
                   to="/contact"

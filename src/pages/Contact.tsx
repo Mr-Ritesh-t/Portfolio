@@ -131,9 +131,10 @@ const Contact = () => {
                       id="subject"
                       {...register("subject", { required: "Subject is required" })}
                      className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-brand-blue transition-all appearance-none"
+                     value=""
                     >
                       <option className='text-black' value="" disabled>Select a subject</option>
-                      <option className='text-black' value="New Project">New Project</option>
+                      <option className='text-black' value="New Project">Need a website</option>
                       <option className='text-black' value="Collaboration">Collaboration</option>
                       <option className='text-black' value="Job Offer">Want To Hire Me</option>
                       <option className='text-black' value="Other">Other</option>
@@ -230,10 +231,11 @@ const Contact = () => {
                         <a href="https://www.linkedin.com/in/mr-ritesh" target="_blank" rel="noopener noreferrer" className="h-10 w-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
                           <Linkedin className="h-5 w-5" />
                         </a>
-                        <a href="https://github.com/Mr-Ritesh-1" target="_blank" rel="noopener noreferrer" className="h-10 w-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+                        <a href="https://github.com/Mr-Ritesh-t" target="_blank" rel="noopener noreferrer" className="h-10 w-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+                        
                           <Github className="h-5 w-5" />
                         </a>
-                        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="h-10 w-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+                        <a href="https://x.com/RiteshTaya82223" target="_blank" rel="noopener noreferrer" className="h-10 w-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
                           <Twitter className="h-5 w-5" />
                         </a>
                       </div>

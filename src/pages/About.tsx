@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import AnimatedShape from '@/components/AnimatedShape';
 import { Link } from 'react-router-dom';
-import { Linkedin, Github, Mail, Phone } from 'lucide-react';
+import { Linkedin, Github, Mail, Phone, BookOpen } from 'lucide-react';
 
 const About = () => {
   useEffect(() => {
@@ -39,7 +39,7 @@ const About = () => {
           <Linkedin className="h-5 w-5" />
         </a>
         <a 
-          href="https://github.com/Mr-Ritesh-1" 
+          href="https://github.com/Mr-Ritesh-t" 
           target="_blank" 
           rel="noopener noreferrer"
           className="text-white/60 hover:text-brand-blue transition-colors"
@@ -61,9 +61,15 @@ const About = () => {
         >
           <Phone className="h-5 w-5" />
         </a>
+        <a 
+          href="/resume" 
+          className="text-white/60 hover:text-brand-blue transition-colors"
+          aria-label="Resume"
+        >
+          <BookOpen className="h-5 w-5" />
+        </a>
       </div>
 
-      {/* Main content */}
       <div className="pl-16">
         <Navbar />
 
@@ -86,7 +92,7 @@ const About = () => {
                   Aspiring Web Developer
                 </h1>
                 <p className="text-lg text-white/80 mb-8 animate-fade-in" style={{ animationDelay: '0.1s' }}>
-                  I'm Ritesh Tayade, an aspiring web developer based in Jalgaon, India. I'm passionate about building modern, responsive, and user-friendly websites and applications.
+                  I'm Ritesh Tayade, an aspiring web developer based in Pune, India. I'm passionate about building modern, responsive, and user-friendly websites and applications.
                 </p>
               </div>
             </div>
@@ -142,7 +148,7 @@ const About = () => {
               <div className="max-w-2xl mx-auto text-center">
                 <h2 className="text-3xl md:text-4xl font-medium mb-6">Want to work together?</h2>
                 <p className="text-white/80 mb-8">
-                  I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
+                Need a website or want to hire me? Let's bring your idea to life! I'm always open to new opportunities and challenges. Get in touch.
                 </p>
                 <Link 
                   to="/contact"

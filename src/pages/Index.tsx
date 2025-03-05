@@ -38,7 +38,7 @@ const Index = () => {
             <Instagram className="h-5 w-5" />
           </a>
         <a 
-          href="https://github.com/Mr-Ritesh-1" 
+          href="https://github.com/Mr-Ritesh-t" 
           target="_blank" 
           rel="noopener noreferrer"
           className="text-white/60 hover:text-brand-blue transition-colors"
