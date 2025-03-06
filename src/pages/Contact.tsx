@@ -12,7 +12,8 @@ const Contact = () => {
   }, []);
 
   const { toast } = useToast();
-  const apiKey = "868f7675-6e32-4f57-aae4-1d179b5f6dae"; 
+  const apiKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY; 
+  
 
   const {
     register,
@@ -205,7 +206,7 @@ const Contact = () => {
                     <div>
                       <h3 className="text-lg font-medium mb-2">Email</h3>
                       <a href="mailto:riteshtayade68@gmail.com" className="text-white/80 hover:text-white transition-colors">
-                        riteshtayade68@gmail.com
+                        Riteshtayade68@gmail.com
                       </a>
                     </div>
                     

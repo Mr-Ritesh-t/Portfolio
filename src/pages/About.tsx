@@ -174,7 +174,7 @@ const About = () => {
               <div>
                 <div className="text-lg font-medium mb-4">Connect</div>
                 <div className="flex flex-col space-y-2">
-                  <a href="https://github.com/Mr-Ritesh-1" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-white transition-colors">GitHub</a>
+                  <a href="https://github.com/Mr-Ritesh-t" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-white transition-colors">GitHub</a>
                   <a href="https://www.linkedin.com/in/mr-ritesh" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-white transition-colors">LinkedIn</a>
                 </div>
               </div>

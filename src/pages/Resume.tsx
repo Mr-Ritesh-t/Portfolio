@@ -56,7 +56,7 @@ const Resume = () => {
                   </div>
                 </div>
                 <div className="flex justify-center gap-4 mt-3 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-                  <a href="https://github.com/Mr-Ritesh-1" target="_blank" rel="noopener noreferrer" className="text-white/80 hover:text-white transition-colors">
+                  <a href="https://github.com/Mr-Ritesh-t" target="_blank" rel="noopener noreferrer" className="text-white/80 hover:text-white transition-colors">
                     <Github className="h-5 w-5" />
                   </a>
                   <a href="https://www.linkedin.com/in/mr-ritesh" target="_blank" rel="noopener noreferrer" className="text-white/80 hover:text-white transition-colors">
@@ -69,9 +69,7 @@ const Resume = () => {
                 <div className="animate-fade-in" style={{ animationDelay: '0.3s' }}>
                   <h2 className="text-2xl font-medium mb-4 border-b border-white/10 pb-2">SUMMARY</h2>
                   <p className="text-white/80">
-                    Enthusiastic web developer with a strong foundation in frontend and backend technologies, specializing in Django and ReactJs. 
-                    Passionate about creating interactive, modern web solutions with a keen eye for UI/UX design and problem-solving. 
-                    Seeking opportunities to apply my technical skills and contribute to innovative projects.
+                  Dedicated web developer with a solid understanding of frontend and backend technologies, with expertise in Django and ReactJs. Dedicated to developing engaging, contemporary web solutions with an eye for UI/UX design and problem-solving. Looking for opportunities to bring my technical abilities to bear and contribute to creative projects.
                   </p>
                 </div>
                 
@@ -167,7 +165,7 @@ const Resume = () => {
                   <div className="space-y-3">
                     <div className="flex justify-between items-center">
                       <p className="text-white/80">Data Science</p>
-                      <p className="text-white/70 text-sm">Aug 2025</p>
+                      <p className="text-white/70 text-sm">Aug 2024</p>
                     </div>
                     <div className="flex justify-between items-center">
                       <p className="text-white/80">HTML, CSS, and JavaScript</p>
@@ -252,13 +250,13 @@ const Resume = () => {
             <div>
               <div className="text-2xl font-medium mb-4">Ritesh Tayade</div>
               <p className="text-white/60 max-w-md">
-                Enthusiastic web developer with a strong foundation in frontend and backend technologies.
+              Passionate web developer with a strong foundation in frontend and backend technologies, dedicated to creating dynamic and user-friendly applications.
               </p>
             </div>
             <div>
               <div className="text-lg font-medium mb-4">Connect</div>
               <div className="flex flex-col space-y-2">
-                <a href="https://github.com/Mr-Ritesh-1" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-white transition-colors">GitHub</a>
+                <a href="https://github.com/Mr-Ritesh-t" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-white transition-colors">GitHub</a>
                 <a href="https://www.linkedin.com/in/mr-ritesh" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-white transition-colors">LinkedIn</a>
               </div>
             </div>

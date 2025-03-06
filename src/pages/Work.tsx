@@ -197,7 +197,7 @@ const Work = () => {
               <div>
                 <div className="text-2xl font-medium mb-4">Ritesh Tayade</div>
                 <p className="text-white/60 max-w-md">
-                  Enthusiastic web developer with a strong foundation in frontend and backend technologies.
+                Passionate web developer with a strong foundation in frontend and backend technologies, dedicated to creating dynamic and user-friendly applications.
                 </p>
               </div>
               <div>
