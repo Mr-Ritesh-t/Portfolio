@@ -46,13 +46,14 @@ const Index = () => {
         >
           <Github className="h-5 w-5" />
         </a>
-        <a 
-          href="/resume" 
-          className="text-white/60 hover:text-brand-blue transition-colors"
-          aria-label="Resume"
-        >
-          <BookOpen className="h-5 w-5" />
-        </a>
+        <Link to={'/resume'}>
+                <a 
+                  className="text-white/60 hover:text-brand-blue transition-colors"
+                  aria-label="Resume"
+                >
+                  <BookOpen className="h-5 w-5" />
+                </a>
+                </Link>
       </div>
       <div className="pl-16">
         <Navbar />

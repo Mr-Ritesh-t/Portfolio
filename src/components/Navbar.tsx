@@ -31,11 +31,11 @@ const Navbar: React.FC = () => {
   return (
     <header
       className={cn(
-        'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
-        isScrolled ? 'py-4 bg-brand-black/80 backdrop-blur' : 'py-6'
+        'fixed top-0 left-0 right-0 z-50 transition-all duration-300  bg-brand-black/80 backdrop-blur',
+        isScrolled ? 'py-4' : 'py-6'
       )}
     >
-      <div className="container mx-auto px-4  md:px-6 flex items-center justify-between">
+      <div className="container mx-auto px-4  md:px-6 flex items-center justify-between ">
         <Link 
           to="/" 
           className="text-2xl font-medium tracking-tight animate-fade-in "
@@ -49,7 +49,7 @@ const Navbar: React.FC = () => {
         {isMobile ? (
           <button
             onClick={toggleMenu}
-            className="text-white focus:outline-none"
+            className="text-white focus:outline-none z-50"
             aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
           >
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -90,11 +90,11 @@ const Navbar: React.FC = () => {
       {isMobile && (
         <div
           className={cn(
-            'fixed inset-0 bg-brand-black z-40 transition-transform duration-300 ease-in-out',
+            'fixed inset-0 bg-brand-black z-40 transition-transform duration-300 ease-in-out ',
             isMenuOpen ? 'translate-x-0' : 'translate-x-[-100%]'
           )}
         >
-          <div className="container h-full mx-auto px-4 py-20 flex flex-col">
+          <div className="container  bg-brand-black h-screen mx-auto px-4 py-20 flex flex-col">
             <nav className="flex flex-col space-y-8 mt-10">
               <Link 
                 to="/work" 
@@ -116,7 +116,7 @@ const Navbar: React.FC = () => {
               </Link>
             </nav>
 
-            <div className="mt-auto mb-10">
+            <div className="mt-auto mb-10 bottom-10">
               <div className="text-white/60 text-sm">
                 &copy; {new Date().getFullYear()} RITESH TAYADE
               </div>
