@@ -57,7 +57,7 @@ const Index = () => {
       </div>
       <div className="pl-16">
         <Navbar />
-        <main className="relative pt-32 pb-20">
+        <main className="relative pt-16 pb-20">
           <section className="container mx-auto px-4 md:px-6 min-h-[calc(100vh-80px)] flex flex-col justify-center">
             <div className="max-w-4xl mx-auto text-center relative">
               <AnimatedShape 
