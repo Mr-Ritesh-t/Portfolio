@@ -27,7 +27,7 @@ const WorkCard: React.FC<WorkCardProps> = ({
   return (
     <div
       className={cn(
-        'relative overflow-hidden rounded-3xl flex flex-col card-hover h-full',
+        'relative overflow-hidden rounded-b-3xl rounded-t-sm flex flex-col card-hover h-full',
         'bg-white text-brand-black',
         className
       )}
@@ -37,7 +37,7 @@ const WorkCard: React.FC<WorkCardProps> = ({
           <img 
             src={image} 
             alt={title} 
-            className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+            className="w-full h-full object-fill transition-transform duration-500 hover:scale-105"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center bg-gray-200">
