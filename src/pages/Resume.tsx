@@ -86,7 +86,6 @@ const Resume = () => {
                       <p>Shree Gulabrao Deokar College of Polytechnic, Jalgaon</p>
                       <p>Sep 2021 - Present</p>
                     </div>
-                    <p className="text-white/70 text-sm">70%</p>
                   </div>
                 </div>
                 
