@@ -82,7 +82,7 @@ const Resume = () => {
                     <h3 className="text-xl font-medium">Diploma in Computer Science</h3>
                     <div className="flex justify-between items-center text-white/80">
                       <p>Shree Gulabrao Deokar College of Polytechnic, Jalgaon</p>
-                      <p>Sep 2021 - Present</p>
+                      <p className='p-5'>Sep 2021 - Present</p>
                     </div>
                   </div>
                 </div>
