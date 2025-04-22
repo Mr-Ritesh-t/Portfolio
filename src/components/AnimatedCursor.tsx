@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useIsMobile } from '../hooks/use-mobile';
 
 interface CursorPosition {
   x: number;
@@ -9,8 +10,11 @@ const AnimatedCursor: React.FC = () => {
   const [position, setPosition] = useState<CursorPosition>({ x: 0, y: 0 });
   const [isPointer, setIsPointer] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const isMobile = useIsMobile(); // 🔍 use mobile detection
 
   useEffect(() => {
+    if (isMobile) return; // 🚫 Skip setup if mobile
+
     const updateCursorPosition = (e: MouseEvent) => {
       setPosition({ x: e.clientX, y: e.clientY });
     };
@@ -35,7 +39,9 @@ const AnimatedCursor: React.FC = () => {
       document.removeEventListener('mouseenter', handleMouseEnter);
       document.removeEventListener('mouseleave', handleMouseLeave);
     };
-  }, [position.x, position.y]);
+  }, [position.x, position.y, isMobile]);
+
+  if (isMobile) return null; // ✅ Don't render anything on mobile
 
   return (
     <>
@@ -59,7 +65,7 @@ const AnimatedCursor: React.FC = () => {
             height: '12px',
           }}
         />
-        
+
         {/* Outer ring */}
         <div
           className={`absolute rounded-full border transition-all duration-200 ${
@@ -95,4 +101,4 @@ const AnimatedCursor: React.FC = () => {
   );
 };
 
-export default AnimatedCursor; 
+export default AnimatedCursor;
