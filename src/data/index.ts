@@ -11,7 +11,8 @@ export const PERSONAL_INFO = {
     linkedin: "https://www.linkedin.com/in/mr-ritesh",
     twitter: "https://x.com/RiteshTaya82223",
     instagram: "https://www.instagram.com/mr.ritesh__t/"
-  }
+  },
+  resumeLink: "/Ritesh_Tayade_Resume.pdf" // Placeholder path (place actual PDF in /public directory)
 };
 
 export const SKILL_CATEGORIES = [

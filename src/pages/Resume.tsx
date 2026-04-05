@@ -12,7 +12,8 @@ import {
   Linkedin,
   MapPin,
   Trophy,
-  Heart
+  Heart,
+  Download
 } from 'lucide-react';
 import { PERSONAL_INFO, SKILL_CATEGORIES, EDUCATION, CERTIFICATIONS, STRENGTHS, HOBBIES } from '@/data';
 
@@ -111,6 +112,20 @@ const Resume = () => {
                     aria-label="LinkedIn"
                   >
                     <Linkedin className="h-5 w-5" />
+                  </a>
+                </div>
+
+                <div
+                  className="flex justify-center mt-6 animate-fade-in"
+                  style={{ animationDelay: '0.25s' }}
+                >
+                  <a
+                    href={PERSONAL_INFO.resumeLink}
+                    download
+                    className="inline-flex items-center justify-center px-6 py-2 border border-brand-blue/50 text-brand-blue rounded-full font-medium hover:bg-brand-blue/10 transition-colors"
+                  >
+                    <Download className="h-4 w-4 mr-2" />
+                    Download Resume
                   </a>
                 </div>
               </div>
