@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import Navbar from '@/components/Navbar';
 import AnimatedShape from '@/components/AnimatedShape';
+import { Helmet } from 'react-helmet-async';
 import {
   Briefcase,
   GraduationCap,
@@ -14,6 +14,7 @@ import {
   Trophy,
   Heart
 } from 'lucide-react';
+import { PERSONAL_INFO, SKILL_CATEGORIES, EDUCATION, CERTIFICATIONS, STRENGTHS, HOBBIES } from '@/data';
 
 const Resume = () => {
   useEffect(() => {
@@ -21,8 +22,11 @@ const Resume = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-brand-black text-white overflow-hidden">
-      <Navbar />
+    <>
+      <Helmet>
+        <title>{PERSONAL_INFO.name} | Resume</title>
+        <meta name="description" content={`${PERSONAL_INFO.name} - Resume & Experience`} />
+      </Helmet>
 
       <main className="relative pt-32 pb-20 page-transition">
         <section className="container mx-auto px-4 md:px-6 mb-16">
@@ -45,11 +49,11 @@ const Resume = () => {
             <div className="relative z-10 max-w-4xl mx-auto">
               {/* Header */}
               <div className="text-center mb-12">
-                <h1 className="text-4xl md:text-5xl font-bold mb-4 animate-fade-in">
-                  RITESH TAYADE
+                <h1 className="text-4xl md:text-5xl font-bold mb-4 animate-fade-in uppercase">
+                  {PERSONAL_INFO.name}
                 </h1>
                 <p className="text-lg text-brand-blue mb-3 animate-fade-in">
-                  Aspiring Full-Stack Web Developer
+                  {PERSONAL_INFO.role}
                 </p>
 
                 <div
@@ -58,7 +62,7 @@ const Resume = () => {
                 >
                   <div className="flex items-center">
                     <MapPin className="h-4 w-4 mr-1" />
-                    <span>Pune, Maharashtra</span>
+                    <span>{PERSONAL_INFO.location}</span>
                   </div>
 
                   <div className="hidden md:block h-4 w-px bg-white/20"></div>
@@ -66,10 +70,10 @@ const Resume = () => {
                   <div className="flex items-center">
                     <Mail className="h-4 w-4 mr-1" />
                     <a
-                      href="mailto:riteshtayade68@gmail.com"
+                      href={`mailto:${PERSONAL_INFO.email}`}
                       className="hover:text-brand-blue transition-colors"
                     >
-                      riteshtayade68@gmail.com
+                      {PERSONAL_INFO.email}
                     </a>
                   </div>
 
@@ -78,10 +82,10 @@ const Resume = () => {
                   <div className="flex items-center">
                     <Phone className="h-4 w-4 mr-1" />
                     <a
-                      href="tel:+918668740625"
+                      href={`tel:${PERSONAL_INFO.phone.replace(/\s+/g, '')}`}
                       className="hover:text-brand-blue transition-colors"
                     >
-                      +91 8668740625
+                      {PERSONAL_INFO.phone}
                     </a>
                   </div>
                 </div>
@@ -91,7 +95,7 @@ const Resume = () => {
                   style={{ animationDelay: '0.2s' }}
                 >
                   <a
-                    href="https://github.com/Mr-Ritesh-t"
+                    href={PERSONAL_INFO.socials.github}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-white/80 hover:text-white transition-colors"
@@ -100,7 +104,7 @@ const Resume = () => {
                     <Github className="h-5 w-5" />
                   </a>
                   <a
-                    href="https://www.linkedin.com/in/mr-ritesh"
+                    href={PERSONAL_INFO.socials.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-white/80 hover:text-white transition-colors"
@@ -136,21 +140,15 @@ const Resume = () => {
                   </div>
 
                   <div className="space-y-6">
-                    <div>
-                      <h3 className="text-xl font-medium">B.Tech in Information Technology</h3>
-                      <div className="flex flex-col md:flex-row md:justify-between md:items-center text-white/80">
-                        <p>Ratan Tata Maharashtra State Skill University, Pune</p>
-                        <p className="md:pl-5">2025 - Present</p>
+                    {EDUCATION.map((edu, idx) => (
+                      <div key={idx}>
+                        <h3 className="text-xl font-medium">{edu.degree}</h3>
+                        <div className="flex flex-col md:flex-row md:justify-between md:items-center text-white/80">
+                          <p>{edu.institution}</p>
+                          <p className="md:pl-5">{edu.period}</p>
+                        </div>
                       </div>
-                    </div>
-
-                    <div>
-                      <h3 className="text-xl font-medium">Diploma in Computer Science</h3>
-                      <div className="flex flex-col md:flex-row md:justify-between md:items-center text-white/80">
-                        <p>Shree Gulabrao Deokar College of Polytechnic, Jalgaon</p>
-                        <p className="md:pl-5">2022 - 2025</p>
-                      </div>
-                    </div>
+                    ))}
                   </div>
                 </div>
 
@@ -164,49 +162,18 @@ const Resume = () => {
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <h3 className="font-medium text-brand-yellow mb-2">Programming Languages</h3>
-                      <div className="flex flex-wrap gap-2">
-                        {["Python", "Java", "JavaScript", "C", "C++"].map((skill) => (
-                          <span key={skill} className="px-3 py-1 bg-white/10 rounded-full text-sm">
-                            {skill}
-                          </span>
-                        ))}
+                    {SKILL_CATEGORIES.map((skillGroup, idx) => (
+                      <div key={idx}>
+                        <h3 className="font-medium text-brand-yellow mb-2">{skillGroup.category}</h3>
+                        <div className="flex flex-wrap gap-2">
+                          {skillGroup.items.map((skill) => (
+                            <span key={skill} className="px-3 py-1 bg-white/10 rounded-full text-sm">
+                              {skill}
+                            </span>
+                          ))}
+                        </div>
                       </div>
-                    </div>
-
-                    <div>
-                      <h3 className="font-medium text-brand-yellow mb-2">Frontend Development</h3>
-                      <div className="flex flex-wrap gap-2">
-                        {["HTML", "CSS", "React.js", "Tailwind CSS"].map((skill) => (
-                          <span key={skill} className="px-3 py-1 bg-white/10 rounded-full text-sm">
-                            {skill}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div>
-                      <h3 className="font-medium text-brand-yellow mb-2">Backend & Database</h3>
-                      <div className="flex flex-wrap gap-2">
-                        {["Django", "MySQL", "REST APIs", "Firebase"].map((skill) => (
-                          <span key={skill} className="px-3 py-1 bg-white/10 rounded-full text-sm">
-                            {skill}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div>
-                      <h3 className="font-medium text-brand-yellow mb-2">Tools & Platforms</h3>
-                      <div className="flex flex-wrap gap-2">
-                        {["Git", "GitHub", "VS Code", "Postman"].map((skill) => (
-                          <span key={skill} className="px-3 py-1 bg-white/10 rounded-full text-sm">
-                            {skill}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
+                    ))}
                   </div>
                 </div>
 
@@ -267,22 +234,12 @@ const Resume = () => {
                   </div>
 
                   <div className="space-y-3">
-                    <div className="flex justify-between items-center">
-                      <p className="text-white/80">Data Science</p>
-                      <p className="text-white/70 text-sm">Aug 2024</p>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <p className="text-white/80">HTML, CSS, and JavaScript</p>
-                      <p className="text-white/70 text-sm">Jul 2023</p>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <p className="text-white/80">C, C++, Core Java</p>
-                      <p className="text-white/70 text-sm">Jun 2023</p>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <p className="text-white/80">Firebase and REST APIs</p>
-                      <p className="text-white/70 text-sm">Feb 2025</p>
-                    </div>
+                    {CERTIFICATIONS.map((cert, idx) => (
+                      <div key={idx} className="flex justify-between items-center">
+                        <p className="text-white/80">{cert.name}</p>
+                        <p className="text-white/70 text-sm">{cert.date}</p>
+                      </div>
+                    ))}
                   </div>
                 </div>
 
@@ -295,10 +252,9 @@ const Resume = () => {
                     </h2>
                   </div>
                   <ul className="list-disc list-inside text-white/80 space-y-1 ml-1">
-                    <li>Strong problem-solving abilities</li>
-                    <li>Quick learner with a passion for web technologies</li>
-                    <li>Effective communication and teamwork</li>
-                    <li>Ability to build responsive and user-friendly web applications</li>
+                    {STRENGTHS.map((str, idx) => (
+                      <li key={idx}>{str}</li>
+                    ))}
                   </ul>
                 </div>
 
@@ -311,130 +267,18 @@ const Resume = () => {
                     </h2>
                   </div>
                   <ul className="list-disc list-inside text-white/80 space-y-1 ml-1">
-                    <li>Web Development (Frontend & Backend)</li>
-                    <li>Problem Solving & Competitive Programming</li>
-                    <li>Learning New Technologies</li>
-                    <li>UI/UX Design & Responsive Web Design</li>
-                    <li>Open Source Contribution</li>
-                    <li>Reading Books</li>
-                    <li>Traveling</li>
-                    <li>Listening to Music</li>
+                    {HOBBIES.map((hby, idx) => (
+                      <li key={idx}>{hby}</li>
+                    ))}
                   </ul>
                 </div>
 
-                {/* Contact */}
-                <div className="animate-fade-in" style={{ animationDelay: '1.0s' }}>
-                  <div className="flex items-center gap-2 mb-4">
-                    <Mail className="h-5 w-5 text-brand-blue" />
-                    <h2 className="text-2xl font-medium border-b border-white/10 pb-2 flex-grow">
-                      CONTACT
-                    </h2>
-                  </div>
-
-                  <div className="flex flex-col md:flex-row md:flex-wrap gap-4">
-                    <a
-                      href="mailto:riteshtayade68@gmail.com"
-                      className="flex items-center gap-2 text-white/80 hover:text-brand-blue transition-colors"
-                    >
-                      <Mail className="h-4 w-4" />
-                      riteshtayade68@gmail.com
-                    </a>
-
-                    <a
-                      href="tel:+918668740625"
-                      className="flex items-center gap-2 text-white/80 hover:text-brand-blue transition-colors"
-                    >
-                      <Phone className="h-4 w-4" />
-                      +91 8668740625
-                    </a>
-
-                    <a
-                      href="https://github.com/Mr-Ritesh-t"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-white/80 hover:text-brand-blue transition-colors"
-                    >
-                      <Github className="h-4 w-4" />
-                      github.com/Mr-Ritesh-t
-                    </a>
-
-                    <a
-                      href="https://www.linkedin.com/in/mr-ritesh"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-white/80 hover:text-brand-blue transition-colors"
-                    >
-                      <Linkedin className="h-4 w-4" />
-                      linkedin.com/in/mr-ritesh
-                    </a>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
         </section>
       </main>
-
-      <footer className="border-t border-white/10 py-10">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div>
-              <div className="text-2xl font-medium mb-4">Ritesh Tayade</div>
-              <p className="text-white/60 max-w-md">
-                Aspiring full-stack web developer passionate about building modern,
-                responsive, and user-friendly web applications.
-              </p>
-            </div>
-
-            <div>
-              <div className="text-lg font-medium mb-4">Connect</div>
-              <div className="flex flex-col space-y-2">
-                <a
-                  href="https://github.com/Mr-Ritesh-t"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-white/60 hover:text-white transition-colors"
-                >
-                  GitHub
-                </a>
-                <a
-                  href="https://www.linkedin.com/in/mr-ritesh"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-white/60 hover:text-white transition-colors"
-                >
-                  LinkedIn
-                </a>
-              </div>
-            </div>
-
-            <div>
-              <div className="text-lg font-medium mb-4">Contact</div>
-              <div className="flex flex-col space-y-2">
-                <a
-                  href="mailto:riteshtayade68@gmail.com"
-                  className="text-white/60 hover:text-white transition-colors"
-                >
-                  riteshtayade68@gmail.com
-                </a>
-                <a
-                  href="tel:+918668740625"
-                  className="text-white/60 hover:text-white transition-colors"
-                >
-                  +91 8668740625
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-10 pt-6 border-t border-white/10 flex flex-col md:flex-row justify-between items-center">
-            <div className="text-white/60 text-sm mb-4 md:mb-0">
-              &copy; {new Date().getFullYear()} Ritesh Tayade. All rights reserved.
-            </div>
-          </div>
-        </div>
-      </footer>
-    </div>
+    </>
   );
 };
 

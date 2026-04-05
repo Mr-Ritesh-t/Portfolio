@@ -1,9 +1,8 @@
 
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Linkedin, Twitter, Youtube, Github, BookOpen, Instagram } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 import AnimatedShape from '@/components/AnimatedShape';
-import Navbar from '@/components/Navbar';
 
 const Index = () => {
   useEffect(() => {
@@ -11,53 +10,12 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-brand-black text-white overflow-hidden">
-      <div className="fixed left-0 top-0 bottom-0 w-16 bg-brand-black/80 z-40 flex flex-col items-center justify-center gap-8 border-r border-white/10">
-        <a 
-          href="https://www.linkedin.com/in/mr-ritesh" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="text-white/60 hover:text-brand-blue transition-colors"
-          aria-label="LinkedIn"
-        >
-          <Linkedin className="h-5 w-5" />
-        </a>
-        <a 
-          href="https://x.com/RiteshTaya82223" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="text-white/60 hover:text-brand-blue transition-colors"
-          aria-label="Twitter"
-        >
-          <Twitter className="h-5 w-5" />
-        </a>
-        <a href="https://www.instagram.com/mr.ritesh__t/" target="_blank" 
-          rel="noopener noreferrer"
-          className="text-white/60 hover:text-brand-blue transition-colors"
-          aria-label="Instagram">
-            <Instagram className="h-5 w-5" />
-          </a>
-        <a 
-          href="https://github.com/Mr-Ritesh-t" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="text-white/60 hover:text-brand-blue transition-colors"
-          aria-label="GitHub"
-        >
-          <Github className="h-5 w-5" />
-        </a>
-        <Link to={'/resume'}>
-                <a 
-                  className="text-white/60 hover:text-brand-blue transition-colors"
-                  aria-label="Resume"
-                >
-                  <BookOpen className="h-5 w-5" />
-                </a>
-                </Link>
-      </div>
-      <div className="pl-16">
-        <Navbar />
-        <main className="relative pt-16 pb-20">
+    <>
+      <Helmet>
+        <title>Ritesh Tayade | Portfolio</title>
+        <meta name="description" content="A Web Developer passionate about building modern and interactive web applications with strong skills in Python, Java, JavaScript, React.js, and Django." />
+      </Helmet>
+      <main className="relative pt-16 pb-20">
           <section className="container mx-auto px-4 md:px-6 min-h-[calc(100vh-80px)] flex flex-col justify-center">
             <div className="max-w-4xl mx-auto text-center relative">
               <AnimatedShape 
@@ -102,22 +60,7 @@ const Index = () => {
             </div>
           </section>
         </main>
-
-        {/* Footer */}
-        <footer className="border-t border-white/10 py-6">
-          <div className="container mx-auto px-4 md:px-6">
-            <div className="flex flex-col md:flex-row justify-between items-center">
-              <div className="text-white/60 text-sm mb-4 md:mb-0">
-                &copy; {new Date().getFullYear()} Ritesh Tayade. All rights reserved.
-              </div>
-              <div className="flex space-x-6">
-                <a href="mailto:Riteshtayade68@gmail.com" className="text-white/60 hover:text-white text-sm transition-colors">Riteshtayade68@gmail.com</a>
-              </div>
-            </div>
-          </div>
-        </footer>
-      </div>
-    </div>
+    </>
   );
 };
 

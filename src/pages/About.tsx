@@ -1,261 +1,129 @@
 import React, { useEffect } from 'react';
-import Navbar from '@/components/Navbar';
 import AnimatedShape from '@/components/AnimatedShape';
 import { Link } from 'react-router-dom';
-import { Linkedin, Github, Mail, Phone, BookOpen } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
+import { PERSONAL_INFO, SKILL_CATEGORIES, EDUCATION } from '@/data';
 
 const About = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const skills = [
-    { category: "Programming Languages", items: ["Python", "Java", "JavaScript", "C", "C++"] },
-    { category: "Web Development", items: ["HTML", "CSS", "React.js", "Django", "MySQL"] },
-    { category: "Tools & Technologies", items: ["Tailwind CSS", "Firebase", "REST APIs", "Git", "GitHub"] }
-  ];
-
-  const education = [
-    {
-      degree: "B.Tech in Information Technology",
-      institution: "Ratan Tata Maharashtra State Skill University, Pune",
-      period: "2025 - Present",
-      description:
-        "Currently pursuing my B.Tech in Information Technology with a focus on software development, modern web technologies, and problem-solving."
-    },
-    {
-      degree: "Diploma in Computer Science",
-      institution: "Shree Gulabrao Deokar College of Polytechnic, Jalgaon",
-      period: "2022 - 2025",
-      description:
-        "Completed Diploma in Computer Science with a strong foundation in programming, web development, databases, and software engineering concepts."
-    }
-  ];
-
   return (
-    <div className="min-h-screen bg-brand-black text-white overflow-hidden">
-      {/* Social sidebar */}
-      <div className="fixed left-0 top-0 bottom-0 w-16 bg-brand-black/80 z-40 flex flex-col items-center justify-center gap-8 border-r border-white/10">
-        <a
-          href="https://www.linkedin.com/in/mr-ritesh"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-white/60 hover:text-brand-blue transition-colors"
-          aria-label="LinkedIn"
-        >
-          <Linkedin className="h-5 w-5" />
-        </a>
+    <>
+      <Helmet>
+        <title>{PERSONAL_INFO.name} | About</title>
+        <meta name="description" content={`About ${PERSONAL_INFO.name} - ${PERSONAL_INFO.role}`} />
+      </Helmet>
 
-        <a
-          href="https://github.com/Mr-Ritesh-t"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-white/60 hover:text-brand-blue transition-colors"
-          aria-label="GitHub"
-        >
-          <Github className="h-5 w-5" />
-        </a>
+      <main className="relative pt-32 pb-20 page-transition">
+        {/* Hero */}
+        <section className="container mx-auto px-4 md:px-6 mb-16">
+          <div className="relative">
+            <AnimatedShape
+              type="square"
+              color="rgba(64, 48, 255, 0.3)"
+              size={100}
+              className="top-[20px] right-[10%] z-0"
+              animationDelay="0s"
+            />
 
-        <a
-          href="mailto:riteshtayade68@gmail.com"
-          className="text-white/60 hover:text-brand-blue transition-colors"
-          aria-label="Email"
-        >
-          <Mail className="h-5 w-5" />
-        </a>
-
-        <a
-          href="tel:+918668740625"
-          className="text-white/60 hover:text-brand-blue transition-colors"
-          aria-label="Phone"
-        >
-          <Phone className="h-5 w-5" />
-        </a>
-
-        <Link
-          to="/resume"
-          className="text-white/60 hover:text-brand-blue transition-colors"
-          aria-label="Resume"
-        >
-          <BookOpen className="h-5 w-5" />
-        </Link>
-      </div>
-
-      <div className="pl-16">
-        <Navbar />
-
-        <main className="relative pt-32 pb-20 page-transition">
-          {/* Hero */}
-          <section className="container mx-auto px-4 md:px-6 mb-16">
-            <div className="relative">
-              <AnimatedShape
-                type="square"
-                color="rgba(64, 48, 255, 0.3)"
-                size={100}
-                className="top-[20px] right-[10%] z-0"
-                animationDelay="0s"
-              />
-
-              <div className="relative z-10 max-w-3xl">
-                <div className="inline-block px-3 py-1 bg-brand-blue/20 rounded-full text-sm mb-4 animate-fade-in">
-                  About Me
-                </div>
-                <h1 className="text-4xl md:text-5xl font-medium leading-tight mb-6 animate-fade-in">
-                  Aspiring Full-Stack Web Developer
-                </h1>
-                <p
-                  className="text-lg text-white/80 mb-8 animate-fade-in"
-                  style={{ animationDelay: '0.1s' }}
-                >
-                  I'm Ritesh Tayade, an aspiring full-stack web developer based in Pune, India.
-                  I’m passionate about building modern, responsive, and user-friendly websites
-                  and web applications that solve real-world problems.
-                </p>
+            <div className="relative z-10 max-w-3xl">
+              <div className="inline-block px-3 py-1 bg-brand-blue/20 rounded-full text-sm mb-4 animate-fade-in">
+                About Me
               </div>
+              <h1 className="text-4xl md:text-5xl font-medium leading-tight mb-6 animate-fade-in">
+                {PERSONAL_INFO.role}
+              </h1>
+              <p
+                className="text-lg text-white/80 mb-8 animate-fade-in"
+                style={{ animationDelay: '0.1s' }}
+              >
+                {PERSONAL_INFO.description}
+              </p>
             </div>
-          </section>
+          </div>
+        </section>
 
-          {/* Journey + Education */}
-          <section className="container mx-auto px-4 md:px-6 mb-20">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-              <div>
-                <h2 className="text-3xl font-medium mb-6">My Journey</h2>
-                <p className="text-white/80 mb-6">
-                  I have successfully completed my Diploma in Computer Science and I am currently
-                  pursuing my B.Tech in Information Technology at Ratan Tata Maharashtra State Skill University, Pune.
-                </p>
-                <p className="text-white/80 mb-6">
-                  My academic journey has helped me build a strong foundation in programming,
-                  web development, databases, and software engineering principles.
-                </p>
-                <p className="text-white/80">
-                  I’m constantly learning and improving my skills through projects, practical
-                  development, and self-learning. My goal is to become a skilled full-stack
-                  developer and create impactful digital solutions.
-                </p>
-              </div>
-
-              <div>
-                <h2 className="text-3xl font-medium mb-6">Education</h2>
-                <div className="space-y-6">
-                  {education.map((edu, index) => (
-                    <div key={index} className="bg-white/5 rounded-xl p-6 border border-white/10">
-                      <h3 className="text-xl font-medium mb-1">{edu.degree}</h3>
-                      <p className="text-brand-blue mb-2">{edu.institution}</p>
-                      <p className="text-white/60 text-sm mb-3">{edu.period}</p>
-                      <p className="text-white/80">{edu.description}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
+        {/* Journey + Education */}
+        <section className="container mx-auto px-4 md:px-6 mb-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div>
+              <h2 className="text-3xl font-medium mb-6">My Journey</h2>
+              <p className="text-white/80 mb-6">
+                I have successfully completed my Diploma in Computer Science and I am currently
+                pursuing my B.Tech in Information Technology at Ratan Tata Maharashtra State Skill University, Pune.
+              </p>
+              <p className="text-white/80 mb-6">
+                My academic journey has helped me build a strong foundation in programming,
+                web development, databases, and software engineering principles.
+              </p>
+              <p className="text-white/80">
+                I’m constantly learning and improving my skills through projects, practical
+                development, and self-learning. My goal is to become a skilled full-stack
+                developer and create impactful digital solutions.
+              </p>
             </div>
-          </section>
 
-          {/* Skills */}
-          <section className="container mx-auto px-4 md:px-6 mb-20">
-            <h2 className="text-3xl font-medium mb-10">Skills & Expertise</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {skills.map((skillGroup, index) => (
-                <div
-                  key={index}
-                  className="bg-white/5 rounded-2xl p-6 border border-white/10 animate-fade-in"
-                  style={{ animationDelay: `${0.1 * index}s` }}
-                >
-                  <h3 className="text-xl font-medium mb-4">{skillGroup.category}</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {skillGroup.items.map((skill, idx) => (
-                      <span key={idx} className="text-sm px-3 py-1 bg-white/10 rounded-full">
-                        {skill}
-                      </span>
-                    ))}
+            <div>
+              <h2 className="text-3xl font-medium mb-6">Education</h2>
+              <div className="space-y-6">
+                {EDUCATION.map((edu, index) => (
+                  <div key={index} className="bg-white/5 rounded-xl p-6 border border-white/10">
+                    <h3 className="text-xl font-medium mb-1">{edu.degree}</h3>
+                    <p className="text-brand-blue mb-2">{edu.institution}</p>
+                    <p className="text-white/60 text-sm mb-3">{edu.period}</p>
+                    <p className="text-white/80">{edu.description}</p>
                   </div>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* CTA */}
-          <section className="container mx-auto px-4 md:px-6 mb-16">
-            <div className="bg-brand-blue rounded-3xl p-10 md:p-16">
-              <div className="max-w-2xl mx-auto text-center">
-                <h2 className="text-3xl md:text-4xl font-medium mb-6">Want to work together?</h2>
-                <p className="text-white/80 mb-8">
-                  Need a website or want to hire me? Let’s bring your ideas to life.
-                  I’m always open to internships, collaborations, and exciting opportunities.
-                </p>
-                <Link
-                  to="/contact"
-                  className="inline-flex items-center justify-center px-6 py-3 bg-white text-brand-blue rounded-full font-medium hover:bg-white/90 transition-colors"
-                >
-                  Get in touch
-                </Link>
-              </div>
-            </div>
-          </section>
-        </main>
-
-        {/* Footer */}
-        <footer className="border-t border-white/10 py-10">
-          <div className="container mx-auto px-4 md:px-6">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div>
-                <div className="text-2xl font-medium mb-4">Ritesh Tayade</div>
-                <p className="text-white/60 max-w-md">
-                  Aspiring full-stack web developer passionate about building modern,
-                  responsive, and user-friendly web applications.
-                </p>
-              </div>
-
-              <div>
-                <div className="text-lg font-medium mb-4">Connect</div>
-                <div className="flex flex-col space-y-2">
-                  <a
-                    href="https://github.com/Mr-Ritesh-t"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-white/60 hover:text-white transition-colors"
-                  >
-                    GitHub
-                  </a>
-                  <a
-                    href="https://www.linkedin.com/in/mr-ritesh"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-white/60 hover:text-white transition-colors"
-                  >
-                    LinkedIn
-                  </a>
-                </div>
-              </div>
-
-              <div>
-                <div className="text-lg font-medium mb-4">Contact</div>
-                <div className="flex flex-col space-y-2">
-                  <a
-                    href="mailto:riteshtayade68@gmail.com"
-                    className="text-white/60 hover:text-white transition-colors"
-                  >
-                    riteshtayade68@gmail.com
-                  </a>
-                  <a
-                    href="tel:+918668740625"
-                    className="text-white/60 hover:text-white transition-colors"
-                  >
-                    +91 8668740625
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-10 pt-6 border-t border-white/10 flex flex-col md:flex-row justify-between items-center">
-              <div className="text-white/60 text-sm mb-4 md:mb-0">
-                &copy; {new Date().getFullYear()} Ritesh Tayade. All rights reserved.
+                ))}
               </div>
             </div>
           </div>
-        </footer>
-      </div>
-    </div>
+        </section>
+
+        {/* Skills */}
+        <section className="container mx-auto px-4 md:px-6 mb-20">
+          <h2 className="text-3xl font-medium mb-10">Skills & Expertise</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {SKILL_CATEGORIES.map((skillGroup, index) => (
+              <div
+                key={index}
+                className="bg-white/5 rounded-2xl p-6 border border-white/10 animate-fade-in"
+                style={{ animationDelay: `${0.1 * index}s` }}
+              >
+                <h3 className="text-xl font-medium mb-4">{skillGroup.category}</h3>
+                <div className="flex flex-wrap gap-2">
+                  {skillGroup.items.map((skill, idx) => (
+                    <span key={idx} className="text-sm px-3 py-1 bg-white/10 rounded-full">
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* CTA */}
+        <section className="container mx-auto px-4 md:px-6 mb-16">
+          <div className="bg-brand-blue rounded-3xl p-10 md:p-16">
+            <div className="max-w-2xl mx-auto text-center">
+              <h2 className="text-3xl md:text-4xl font-medium mb-6">Want to work together?</h2>
+              <p className="text-white/80 mb-8">
+                Need a website or want to hire me? Let’s bring your ideas to life.
+                I’m always open to internships, collaborations, and exciting opportunities.
+              </p>
+              <Link
+                to="/contact"
+                className="inline-flex items-center justify-center px-6 py-3 bg-white text-brand-blue rounded-full font-medium hover:bg-white/90 transition-colors"
+              >
+                Get in touch
+              </Link>
+            </div>
+          </div>
+        </section>
+      </main>
+    </>
   );
 };
 
