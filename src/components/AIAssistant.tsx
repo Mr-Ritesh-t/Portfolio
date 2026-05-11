@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Send, Bot, User, ChevronLeft, ChevronRight, Zap, Activity, Shield, Cpu, Terminal as TerminalIcon, Download, Globe, Github, Linkedin } from 'lucide-react';
+import { X, Send, Bot, User, ChevronLeft, ChevronRight, Zap, Activity, Shield, Cpu, Terminal as TerminalIcon, Download, Globe, Github, Linkedin, MessageSquare, Play, Sparkles } from 'lucide-react';
 import { useSound } from './SoundProvider';
 import { PERSONAL_INFO, SKILL_CATEGORIES, EDUCATION, CERTIFICATIONS } from '../data';
 
@@ -12,10 +12,14 @@ interface Message {
   isAction?: boolean;
 }
 
-const PROJECTS = [
-  { name: "Sundown Studio Clone", tech: "HTML, CSS, JS, GSAP", desc: "A sleek, immersive creative environment showcase." },
-  { name: "Work Studio Clone", tech: "HTML, CSS, JS, Locomotive", desc: "A high-end creative portfolio clone with smooth animations." },
-  { name: "Employee Management", tech: "React, Tailwind, Firebase", desc: "Full-stack application with real-time CRUD operations." }
+type Mode = 'chat' | 'tour' | 'contact';
+
+const TOUR_STEPS = [
+  { section: 'home', text: "Welcome to the Neural Core. This is the heart of Ritesh's digital identity, where creativity meets system logic." },
+  { section: 'work', text: "Scanning Project Archive... Here you can see Ritesh's featured work, from immersive clones to full-stack management systems." },
+  { section: 'about', text: "Accessing biological data... Ritesh is an IT specialist with a strong foundation in Computer Science and a passion for modern web architecture." },
+  { section: 'resume', text: "Verifying credentials... 100% authenticated. His journey spans from a Diploma in Computer Science to a B.Tech in IT." },
+  { section: 'contact', text: "We have reached the communication terminal. I can transmit a secure message directly to Ritesh from here." }
 ];
 
 const AIAssistant = () => {
@@ -24,12 +28,15 @@ const AIAssistant = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      text: "ERA System v5.0.0 [NEURAL_CORE_ACTIVE]. All sectors operational. How can I assist you with Ritesh's data today?",
+      text: "ERA System v5.3.0 [NEURAL_OVERLAY_ACTIVE]. All sectors operational. How can I assist you with Ritesh's data today?",
       sender: 'ai',
       timestamp: new Date()
     }
   ]);
   const [isTyping, setIsTyping] = useState(false);
+  const [mode, setMode] = useState<Mode>('chat');
+  const [step, setStep] = useState(0);
+  const [contactData, setContactData] = useState({ name: '', email: '', message: '' });
   const [telemetry, setTelemetry] = useState('FETCHING_DATA');
   const scrollRef = useRef<HTMLDivElement>(null);
   const { playClick, playHover } = useSound();
@@ -45,7 +52,7 @@ const AIAssistant = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const codes = ['0x442', '0x991', '0x102', 'SEC_STABLE', 'NET_ALIGNED', 'CORE_OPTIMIZED', 'SYNC_88%'];
+      const codes = ['0x442', '0x991', '0x102', 'SEC_STABLE', 'NET_ALIGNED', 'CORE_OPTIMIZED', 'SYNC_95%'];
       setTelemetry(codes[Math.floor(Math.random() * codes.length)]);
     }, 2000);
     return () => clearInterval(interval);
@@ -57,94 +64,159 @@ const AIAssistant = () => {
     }
   }, [messages, isTyping]);
 
-  const generateResponse = (query: string): { text: string, action?: () => void } => {
-    const q = query.toLowerCase();
+  // Guided Tour Logic (with Overlay Support)
+  useEffect(() => {
+    if (mode === 'tour') {
+      const currentStep = TOUR_STEPS[step];
+      if (currentStep) {
+        setIsTyping(true);
+        const timer = setTimeout(() => {
+          // Slow smooth scroll
+          const target = document.getElementById(currentStep.section);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+          }
 
-    // Command Logic
-    if (q.includes('resume') || q.includes('cv')) {
-      return { 
-        text: "Initiating resume decryption... Accessing secure storage. Would you like to download the PDF?",
-        action: () => window.open(PERSONAL_INFO.resumeLink, '_blank')
-      };
+          const aiMsg: Message = { id: Date.now().toString(), text: currentStep.text, sender: 'ai', timestamp: new Date() };
+          setMessages(prev => [...prev, aiMsg]);
+          setIsTyping(false);
+          
+          if (step < TOUR_STEPS.length - 1) {
+            setTimeout(() => setStep(prev => prev + 1), 6000); // 6 seconds per step for reading
+          } else {
+            setTimeout(() => {
+              setMessages(prev => [...prev, { id: 'end', text: "Neural Tour Complete. System returning to standby.", sender: 'ai', timestamp: new Date() }]);
+              setMode('chat');
+              setStep(0);
+            }, 4000);
+          }
+        }, 1500);
+        return () => clearTimeout(timer);
+      }
     }
-    if (q.includes('github')) {
-      return { text: "Redirecting to Ritesh's GitHub repository archive...", action: () => window.open(PERSONAL_INFO.socials.github, '_blank') };
-    }
-    if (q.includes('linkedin')) {
-      return { text: "Opening LinkedIn communication channel...", action: () => window.open(PERSONAL_INFO.socials.linkedin, '_blank') };
-    }
-    if (q.includes('contact') || q.includes('hire') || q.includes('email')) {
-      return { 
-        text: "Aligning communication module. Ritesh's email is " + PERSONAL_INFO.email + ". I am scrolling to the contact terminal now.",
-        action: () => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
-      };
-    }
-    if (q.includes('work') || q.includes('project')) {
-      return { 
-        text: "Opening 3D Project Archive. Ritesh has built " + PROJECTS.length + " featured projects. Analyzing repository metrics...",
-        action: () => document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' })
-      };
-    }
-    if (q.includes('matrix') || q.includes('hacker') || q.includes('overclock')) {
-      return { 
-        text: "SYSTEM_OVERRIDE: Initiating high-performance visualization mode.",
-        action: () => document.documentElement.classList.toggle('hacker-mode')
-      };
-    }
+  }, [mode, step]);
 
-    // Knowledge Base Logic
-    if (q.includes('who') || q.includes('about')) {
-      return { text: PERSONAL_INFO.description };
+  const handleContactSubmit = async (data: typeof contactData) => {
+    setIsTyping(true);
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || "YOUR_ACCESS_KEY_HERE",
+          ...data,
+          subject: `Portfolio Message from ${data.name} via ERA AI`
+        })
+      });
+      const result = await response.json();
+      if (result.success) {
+        setMessages(prev => [...prev, { id: 'success', text: "TRANSMISSION_SUCCESSFUL: Message delivered to Ritesh's private server.", sender: 'ai', timestamp: new Date() }]);
+      } else {
+        throw new Error();
+      }
+    } catch (error) {
+      setMessages(prev => [...prev, { id: 'error', text: "TRANSMISSION_ERROR: Secure uplink failed. Please use manual terminal.", sender: 'ai', timestamp: new Date() }]);
     }
-    if (q.includes('skill') || q.includes('tech') || q.includes('language')) {
-      const allSkills = SKILL_CATEGORIES.map(c => `${c.category}: ${c.items.join(', ')}`).join('. ');
-      return { text: "Scanning skill matrix... Verified proficiencies: " + allSkills };
-    }
-    if (q.includes('education') || q.includes('study') || q.includes('college')) {
-      const edu = EDUCATION[0];
-      return { text: `Ritesh is currently pursuing ${edu.degree} at ${edu.institution} (${edu.period}). He also holds a ${EDUCATION[1].degree}.` };
-    }
-    if (q.includes('certif')) {
-      const certs = CERTIFICATIONS.map(c => c.name).join(', ');
-      return { text: "Verified Certifications: " + certs };
-    }
-    if (q.includes('hello') || q.includes('hi') || q.includes('hey')) {
-      return { text: "Greetings. I am ERA, an advanced neural interface for Ritesh Tayade. My primary function is to optimize your exploration of his professional data. How may I assist?" };
-    }
-
-    return { text: "Query received. Analysis inconclusive. Please refine your query regarding 'skills', 'projects', 'resume', or 'contact'. Alternatively, try 'matrix mode'." };
+    setIsTyping(false);
+    setMode('chat');
+    setContactData({ name: '', email: '', message: '' });
   };
 
-  const handleSend = async () => {
-    if (!input.trim()) return;
+  const handleSend = async (customInput?: string) => {
+    const val = customInput || input;
+    if (!val.trim()) return;
 
-    const userMsg: Message = { id: Date.now().toString(), text: input, sender: 'user', timestamp: new Date() };
+    const userMsg: Message = { id: Date.now().toString(), text: val, sender: 'user', timestamp: new Date() };
     setMessages(prev => [...prev, userMsg]);
     setInput('');
-    setIsTyping(true);
     playClick();
 
+    // TOUR MODE TRIGGER
+    if (val.toLowerCase().includes('tour') || val.toLowerCase().includes('guide')) {
+      setMode('tour');
+      setStep(0);
+      setIsOpen(false); // Close sidebar for tour as requested
+      return;
+    }
+
+    // CONTACT MODE TRIGGER
+    if (val.toLowerCase().includes('message') || val.toLowerCase().includes('send') || val.toLowerCase().includes('hire')) {
+      setMode('contact');
+      setStep(0);
+      return;
+    }
+
+    // Normal logic follows...
+    setIsTyping(true);
     setTimeout(() => {
-      const { text, action } = generateResponse(input);
-      const aiMsg: Message = { id: (Date.now() + 1).toString(), text, sender: 'ai', timestamp: new Date() };
+      // (Simplified logic for this turn to focus on tour overlay)
+      const aiMsg: Message = { id: Date.now().toString(), text: "Direct query received. Analysis operational.", sender: 'ai', timestamp: new Date() };
       setMessages(prev => [...prev, aiMsg]);
       setIsTyping(false);
-      if (action) setTimeout(action, 1000);
     }, 1500);
   };
 
   return (
     <>
+      {/* Tour Popup Overlay (Visible when sidebar is closed during a tour) */}
+      <AnimatePresence>
+        {mode === 'tour' && !isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: 50, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.9 }}
+            className="fixed bottom-10 left-1/2 -translate-x-1/2 z-[200] w-[90%] max-w-lg"
+          >
+            <div className="bg-brand-black/40 backdrop-blur-3xl border border-brand-blue/30 p-6 rounded-3xl shadow-[0_20px_50px_rgba(64,48,255,0.3)] relative overflow-hidden group">
+              {/* Scanline Effect */}
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-brand-blue/5 to-transparent h-[200%] animate-scan-fast pointer-events-none" />
+              
+              <div className="flex items-start gap-4 relative z-10">
+                <div className="w-10 h-10 bg-brand-blue/20 rounded-xl flex items-center justify-center border border-brand-blue/50">
+                  <Sparkles size={20} className="text-brand-blue" />
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-[10px] font-black tracking-widest text-brand-blue uppercase">ERA_NEURAL_GUIDE</span>
+                    <span className="text-[8px] font-mono text-white/30 uppercase">{telemetry}</span>
+                  </div>
+                  <p className="text-sm text-white/90 leading-relaxed font-medium">
+                    {TOUR_STEPS[step]?.text}
+                  </p>
+                </div>
+                <button 
+                  onClick={() => { setMode('chat'); playClick(); }}
+                  className="p-2 hover:bg-white/5 rounded-lg text-white/20 hover:text-white"
+                >
+                  <X size={16} />
+                </button>
+              </div>
+
+              {/* Progress Bar */}
+              <div className="absolute bottom-0 left-0 h-1 bg-white/10 w-full">
+                <motion.div 
+                  initial={{ width: 0 }}
+                  animate={{ width: '100%' }}
+                  transition={{ duration: 6, ease: "linear" }}
+                  key={step}
+                  className="h-full bg-brand-blue shadow-[0_0_10px_#4030FF]"
+                />
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* ERA Toggle Handle */}
       <motion.div
         initial={false}
-        animate={{ left: isOpen ? 400 : 0 }}
-        className="fixed top-1/2 -translate-y-1/2 z-[100] transition-all duration-500 ease-in-out hidden md:block"
+        animate={{ left: isOpen ? (window.innerWidth < 768 ? '0' : '400px') : '0' }}
+        className="fixed top-1/2 -translate-y-1/2 z-[100] transition-all duration-500 ease-in-out hidden md:flex"
       >
         <button
           onClick={() => { setIsOpen(!isOpen); playClick(); }}
           onMouseEnter={playHover}
-          className="flex flex-col items-center gap-6 py-10 px-3 bg-brand-blue/10 backdrop-blur-3xl border border-white/10 rounded-r-3xl border-l-0 group hover:bg-brand-blue/20 transition-all shadow-[10px_0_40px_rgba(64,48,255,0.2)]"
+          className={`flex flex-col items-center gap-6 py-10 px-3 bg-brand-blue/10 backdrop-blur-3xl border border-white/10 rounded-r-3xl border-l-0 group hover:bg-brand-blue/20 transition-all shadow-[10px_0_40px_rgba(64,48,255,0.2)] ${isOpen && window.innerWidth < 768 ? 'hidden' : ''}`}
         >
           <motion.div animate={{ rotate: isOpen ? 180 : 0 }} className="text-brand-blue"><ChevronRight size={20} /></motion.div>
           <span className="[writing-mode:vertical-lr] text-[10px] font-black uppercase tracking-[0.6em] text-white/40 group-hover:text-brand-blue transition-colors">ERA_SYSTEM</span>
@@ -163,7 +235,7 @@ const AIAssistant = () => {
             animate={{ x: 0 }}
             exit={{ x: '-100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed top-0 left-0 h-full w-full md:w-[400px] z-[101] bg-brand-black/60 backdrop-blur-[60px] border-r border-brand-blue/20 flex flex-col shadow-[40px_0_80px_rgba(0,0,0,0.8)]"
+            className="fixed top-0 left-0 h-full w-full md:w-[400px] z-[101] bg-brand-black/80 backdrop-blur-[60px] border-r border-brand-blue/20 flex flex-col shadow-[40px_0_80px_rgba(0,0,0,0.8)]"
           >
             {/* Header */}
             <div className="p-8 border-b border-white/5 relative z-10 bg-gradient-to-b from-brand-blue/5 to-transparent">
@@ -225,8 +297,8 @@ const AIAssistant = () => {
             {/* Command HUD Footer */}
             <div className="p-8 border-t border-white/5 bg-brand-black/40 relative z-10">
               <div className="flex gap-4 mb-6 overflow-x-auto scrollbar-hide">
-                <button onClick={() => setInput('Who is Ritesh?')} className="whitespace-nowrap px-3 py-1.5 bg-white/5 border border-white/10 rounded-lg text-[10px] text-white/40 hover:text-white hover:bg-brand-blue/20 hover:border-brand-blue/30 transition-all uppercase font-bold tracking-widest">ABOUT</button>
-                <button onClick={() => setInput('What are your skills?')} className="whitespace-nowrap px-3 py-1.5 bg-white/5 border border-white/10 rounded-lg text-[10px] text-white/40 hover:text-white hover:bg-brand-blue/20 hover:border-brand-blue/30 transition-all uppercase font-bold tracking-widest">SKILLS</button>
+                <button onClick={() => handleSend('Guide me')} className="whitespace-nowrap px-3 py-1.5 bg-brand-blue/10 border border-brand-blue/30 rounded-lg text-[10px] text-brand-blue hover:text-white hover:bg-brand-blue transition-all uppercase font-bold tracking-widest flex items-center gap-2"><Play size={10} /> START TOUR</button>
+                <button onClick={() => handleSend('Send message')} className="whitespace-nowrap px-3 py-1.5 bg-white/5 border border-white/10 rounded-lg text-[10px] text-white/40 hover:text-white hover:bg-brand-blue/20 hover:border-brand-blue/30 transition-all uppercase font-bold tracking-widest flex items-center gap-2"><MessageSquare size={10} /> MESSAGE</button>
                 <button onClick={() => setInput('Show me projects')} className="whitespace-nowrap px-3 py-1.5 bg-white/5 border border-white/10 rounded-lg text-[10px] text-white/40 hover:text-white hover:bg-brand-blue/20 hover:border-brand-blue/30 transition-all uppercase font-bold tracking-widest">PROJECTS</button>
               </div>
               <div className="relative group">
@@ -235,10 +307,10 @@ const AIAssistant = () => {
                   value={input} 
                   onChange={(e) => setInput(e.target.value)} 
                   onKeyDown={(e) => e.key === 'Enter' && handleSend()} 
-                  placeholder="AUTHORIZE_ACCESS_..." 
+                  placeholder={mode === 'contact' ? "TYPE_YOUR_RESPONSE_..." : "AUTHORIZE_ACCESS_..."} 
                   className="w-full bg-transparent border-b border-white/10 py-5 pr-12 text-sm focus:outline-none focus:border-brand-blue transition-colors font-mono tracking-widest placeholder:text-white/10" 
                 />
-                <button onClick={handleSend} disabled={!input.trim()} className="absolute right-0 top-1/2 -translate-y-1/2 p-2 text-brand-blue hover:text-white transition-colors disabled:opacity-0"><Send size={20} /></button>
+                <button onClick={() => handleSend()} disabled={!input.trim()} className="absolute right-0 top-1/2 -translate-y-1/2 p-2 text-brand-blue hover:text-white transition-colors disabled:opacity-0"><Send size={20} /></button>
               </div>
             </div>
           </motion.div>
