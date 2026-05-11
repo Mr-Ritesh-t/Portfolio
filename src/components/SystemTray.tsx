@@ -21,7 +21,7 @@ const SystemTray = () => {
   };
 
   return (
-    <div className="fixed top-6 right-8 z-[100] flex items-center gap-4">
+    <div className="fixed top-6 right-8 z-[100] hidden md:flex items-center gap-4">
       {/* Control Center Trigger */}
       <motion.button
         onClick={() => { setIsMenuOpen(!isMenuOpen); playClick(); }}
