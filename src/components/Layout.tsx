@@ -1,16 +1,22 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import Navbar from './Navbar';
 import Footer from './Footer';
-import SocialSidebar from './SocialSidebar';
+import CommandMenu from './CommandMenu';
+import ScrollProgress from './ScrollProgress';
+import SystemStats from './SystemStats';
 
 const Layout = () => {
+  const location = useLocation();
+  
   return (
-    <div className="min-h-screen bg-brand-black text-white overflow-hidden flex flex-col">
-      <SocialSidebar />
-      <div className="flex-1 flex flex-col sm:pl-16">
-        <Navbar />
-        <main className="flex-1">
+    <div className="min-h-screen bg-brand-black text-white overflow-hidden flex flex-col relative">
+      <ScrollProgress />
+      <SystemStats />
+      <Navbar />
+      <CommandMenu />
+      <div className="flex-1 flex flex-col">
+        <main key={location.pathname} className="flex-1 animate-in fade-in slide-in-from-bottom-4 duration-500 ease-in-out">
           <Outlet />
         </main>
         <Footer />

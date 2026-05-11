@@ -7,6 +7,7 @@
 
 @layer base {
   :root {
+    --brand-blue: #4030FF;
     --background: 0 0% 7%;
     --foreground: 0 0% 98%;
 
@@ -104,4 +105,46 @@
   * {
     cursor: auto !important;
   }
+}
+/* Hacker Mode CRT Effect */
+.hacker-mode {
+  filter: sepia(1) saturate(5) hue-rotate(90deg) brightness(0.8) contrast(1.2);
+  image-rendering: pixelated;
+}
+
+.hacker-mode::after {
+  content: " ";
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  z-index: 9999;
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none;
+  animation: scanline 10s linear infinite;
+}
+
+@keyframes scanline {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(100%); }
+}
+
+.hacker-mode * {
+  font-family: 'JetBrains Mono', monospace !important;
+  text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+}
+
+.hacker-mode .bg-brand-blue {
+  background-color: #00ff41 !important;
+}
+
+.hacker-mode .text-brand-blue {
+  color: #00ff41 !important;
+}
+
+.hacker-mode .border-brand-blue {
+  border-color: #00ff41 !important;
 }

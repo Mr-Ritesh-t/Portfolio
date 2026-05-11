@@ -10,10 +10,11 @@ const AnimatedCursor: React.FC = () => {
   const [position, setPosition] = useState<CursorPosition>({ x: 0, y: 0 });
   const [isPointer, setIsPointer] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  const isMobile = useIsMobile(); // 🔍 use mobile detection
+  const [cursorLabel, setCursorLabel] = useState<string | null>(null);
+  const isMobile = useIsMobile(); 
 
   useEffect(() => {
-    if (isMobile) return; // 🚫 Skip setup if mobile
+    if (isMobile) return; 
 
     const updateCursorPosition = (e: MouseEvent) => {
       setPosition({ x: e.clientX, y: e.clientY });
@@ -21,8 +22,13 @@ const AnimatedCursor: React.FC = () => {
 
     const updateCursorStyle = () => {
       const hoveredElement = document.elementFromPoint(position.x, position.y);
-      const isClickable = hoveredElement?.matches('a, button, [role="button"], input, select, textarea');
-      setIsPointer(!!isClickable);
+      if (!hoveredElement) return;
+
+      const clickable = hoveredElement.closest('a, button, [role="button"], input, select, textarea');
+      const labelElement = hoveredElement.closest('[data-cursor-text]') as HTMLElement;
+      
+      setIsPointer(!!clickable);
+      setCursorLabel(labelElement?.dataset.cursorText || null);
     };
 
     const handleMouseEnter = () => setIsVisible(true);
@@ -57,14 +63,20 @@ const AnimatedCursor: React.FC = () => {
       >
         {/* Main cursor */}
         <div
-          className={`rounded-full transition-transform duration-200 ${
-            isPointer ? 'bg-brand-blue/50 scale-150' : 'bg-white/50'
+          className={`rounded-full transition-all duration-200 flex items-center justify-center overflow-hidden ${
+            isPointer ? 'bg-brand-blue/80 scale-[2.5]' : 'bg-white/50'
           }`}
           style={{
-            width: '12px',
-            height: '12px',
+            width: cursorLabel ? '40px' : '12px',
+            height: cursorLabel ? '40px' : '12px',
           }}
-        />
+        >
+          {cursorLabel && (
+            <span className="text-[6px] font-bold text-white tracking-tighter animate-in fade-in zoom-in duration-200">
+              {cursorLabel}
+            </span>
+          )}
+        </div>
 
         {/* Outer ring */}
         <div
@@ -76,13 +88,13 @@ const AnimatedCursor: React.FC = () => {
             height: '40px',
             top: '-14px',
             left: '-14px',
-            animation: 'pulse 2s infinite'
+            animation: 'cursor-pulse 2s infinite'
           }}
         />
       </div>
 
-      <style jsx>{`
-        @keyframes pulse {
+      <style dangerouslySetInnerHTML={{ __html: `
+        @keyframes cursor-pulse {
           0% {
             transform: scale(1);
             opacity: 1;
@@ -96,7 +108,7 @@ const AnimatedCursor: React.FC = () => {
             opacity: 1;
           }
         }
-      `}</style>
+      `}} />
     </>
   );
 };

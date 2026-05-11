@@ -64,7 +64,7 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				// Custom colors
-				'brand-blue': '#4030FF',
+				'brand-blue': 'var(--brand-blue, #4030FF)',
 				'brand-yellow': '#FFF3A3',
 				'brand-black': '#111111',
 				'brand-white': '#FFFFFF',

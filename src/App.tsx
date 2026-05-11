@@ -8,6 +8,12 @@ import { SpeedInsights } from '@vercel/speed-insights/react';
 import { HelmetProvider } from 'react-helmet-async';
 import AnimatedCursor from "./components/AnimatedCursor";
 import Layout from "./components/Layout";
+import { SoundProvider } from "./components/SoundProvider";
+import Terminal from "./components/Terminal";
+import Dock from "./components/Dock";
+import BootScreen from "./components/BootScreen";
+import ShortcutHUD from "./components/ShortcutHUD";
+import { NotificationProvider } from "./components/SystemNotification";
 
 // Lazy loading pages
 const Index = lazy(() => import("./pages/Index"));
@@ -22,26 +28,34 @@ const queryClient = new QueryClient();
 const App = () => (
   <HelmetProvider>
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <AnimatedCursor />
-        <Toaster />
-        <SpeedInsights />
-        <Sonner />
-        <BrowserRouter>
-          <Suspense fallback={<div className="h-screen w-full flex items-center justify-center bg-brand-black text-white">Loading...</div>}>
-            <Routes>
-              <Route path="/" element={<Layout />}>
-                <Route index element={<Index />} />
-                <Route path="work" element={<Work />} />
-                <Route path="about" element={<About />} />
-                <Route path="contact" element={<Contact />} />
-                <Route path="resume" element={<Resume />} />
-                <Route path="*" element={<NotFound />} />
-              </Route>
-            </Routes>
-          </Suspense>
-        </BrowserRouter>
-      </TooltipProvider>
+      <SoundProvider>
+        <TooltipProvider>
+          <NotificationProvider>
+            <BootScreen />
+            <ShortcutHUD />
+            <AnimatedCursor />
+            <Toaster />
+            <SpeedInsights />
+            <Sonner />
+            <BrowserRouter>
+              <Terminal />
+              <Dock />
+              <Suspense fallback={<div className="h-screen w-full flex items-center justify-center bg-brand-black text-white">Loading...</div>}>
+                <Routes>
+                  <Route path="/" element={<Layout />}>
+                    <Route index element={<Index />} />
+                    <Route path="work" element={<Index />} />
+                    <Route path="about" element={<Index />} />
+                    <Route path="contact" element={<Index />} />
+                    <Route path="resume" element={<Index />} />
+                    <Route path="*" element={<NotFound />} />
+                  </Route>
+                </Routes>
+              </Suspense>
+            </BrowserRouter>
+          </NotificationProvider>
+        </TooltipProvider>
+      </SoundProvider>
     </QueryClientProvider>
   </HelmetProvider>
 );

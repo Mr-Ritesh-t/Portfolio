@@ -1,7 +1,7 @@
 
-import React from 'react';
+import React, { useRef } from 'react';
 import { cn } from '@/lib/utils';
-import { Image, ExternalLink, Calendar } from 'lucide-react';
+import { Image, ExternalLink, Calendar, Github } from 'lucide-react';
 
 interface WorkCardProps {
   title: string;
@@ -9,7 +9,9 @@ interface WorkCardProps {
   description?: string;
   technologies?: string[];
   image?: string;
+  video?: string;
   link?: string;
+  github?: string;
   date?: string;
   className?: string;
 }
@@ -20,25 +22,76 @@ const WorkCard: React.FC<WorkCardProps> = ({
   description,
   technologies,
   image,
+  video,
   link,
+  github,
   date,
   className,
 }) => {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const handleMouseEnter = () => {
+    if (videoRef.current) videoRef.current.play();
+  };
+
+  const handleMouseLeave = () => {
+    if (videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+    }
+  };
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    cardRef.current.style.setProperty('--mouse-x', `${x}px`);
+    cardRef.current.style.setProperty('--mouse-y', `${y}px`);
+  };
+
   return (
     <div
+      ref={cardRef}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onMouseMove={handleMouseMove}
+      data-cursor-text="VIEW"
       className={cn(
-        'relative overflow-hidden rounded-b-3xl rounded-t-sm flex flex-col card-hover h-full',
-        'bg-white text-brand-black',
+        'relative overflow-hidden rounded-b-3xl rounded-t-sm flex flex-col card-hover h-full group',
+        'bg-white text-brand-black hover:shadow-brand-blue/30 hover:shadow-2xl',
         className
       )}
     >
+      <div 
+        className="pointer-events-none absolute -inset-px opacity-0 transition duration-300 group-hover:opacity-100 z-10 mix-blend-multiply"
+        style={{
+          background: `radial-gradient(600px circle at var(--mouse-x, 0) var(--mouse-y, 0), rgba(64,48,255,0.15), transparent 40%)`
+        }}
+      />
       <div className="relative aspect-video bg-gray-100 w-full overflow-hidden" >
-        {image ? (
-          <img 
-            src={image} 
-            alt={title} 
-            className="w-full h-full object-fill transition-transform duration-500 hover:scale-105"
+        {video && (
+          <video
+            ref={videoRef}
+            src={video}
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20"
           />
+        )}
+        {image ? (
+          <>
+            <img 
+              src={image} 
+              alt={title} 
+              loading="lazy"
+              className="w-full h-full object-fill transition-transform duration-500 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-brand-blue/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+          </>
         ) : (
           <div className="w-full h-full flex items-center justify-center bg-gray-200">
             <Image className="w-12 h-12 text-gray-400" />
@@ -82,16 +135,28 @@ const WorkCard: React.FC<WorkCardProps> = ({
           </div>
         )}
       
-        {link && (
-          <a 
-            href={link} 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="inline-flex items-center text-brand-blue hover:underline text-sm mt-auto"
-          >
-            View Project <ExternalLink className="ml-1 h-3 w-3" />
-          </a>
-        )}
+        <div className="flex gap-4 mt-auto">
+          {link && (
+            <a 
+              href={link} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-flex items-center text-brand-blue hover:underline text-sm font-medium"
+            >
+              View Project <ExternalLink className="ml-1 h-3 w-3" />
+            </a>
+          )}
+          {github && (
+            <a 
+              href={github} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-flex items-center text-gray-600 hover:text-brand-blue hover:underline text-sm font-medium transition-colors"
+            >
+              Source Code <Github className="ml-1 h-3 w-3" />
+            </a>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -12,7 +12,7 @@ export const PERSONAL_INFO = {
     twitter: "https://x.com/RiteshTaya82223",
     instagram: "https://www.instagram.com/mr.ritesh__t/"
   },
-  resumeLink: "/Ritesh_Tayade_Resume.pdf" // Placeholder path (place actual PDF in /public directory)
+  resumeLink: "/Ritesh_Tayade_Resume.pdf"
 };
 
 export const SKILL_CATEGORIES = [

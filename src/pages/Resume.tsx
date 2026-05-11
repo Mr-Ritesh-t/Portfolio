@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import AnimatedShape from '@/components/AnimatedShape';
+import SkillGraph from '@/components/SkillGraph';
 import { Helmet } from 'react-helmet-async';
 import {
   Briefcase,
@@ -16,6 +17,7 @@ import {
   Download
 } from 'lucide-react';
 import { PERSONAL_INFO, SKILL_CATEGORIES, EDUCATION, CERTIFICATIONS, STRENGTHS, HOBBIES } from '@/data';
+import Magnetic from '@/components/Magnetic';
 
 const Resume = () => {
   useEffect(() => {
@@ -119,14 +121,23 @@ const Resume = () => {
                   className="flex justify-center mt-6 animate-fade-in"
                   style={{ animationDelay: '0.25s' }}
                 >
-                  <a
-                    href={PERSONAL_INFO.resumeLink}
-                    download
-                    className="inline-flex items-center justify-center px-6 py-2 border border-brand-blue/50 text-brand-blue rounded-full font-medium hover:bg-brand-blue/10 transition-colors"
-                  >
-                    <Download className="h-4 w-4 mr-2" />
-                    Download Resume
-                  </a>
+                  <Magnetic>
+                    <a
+                      href={PERSONAL_INFO.resumeLink}
+                      download
+                      onClick={() => {
+                        import('sonner').then(({ toast }) => {
+                          toast.success("Downloading Resume...", {
+                            description: "Thanks for checking out my profile!",
+                          });
+                        });
+                      }}
+                      className="inline-flex items-center justify-center px-6 py-2 border border-brand-blue/50 text-brand-blue rounded-full font-medium hover:bg-brand-blue/10 transition-colors"
+                    >
+                      <Download className="h-4 w-4 mr-2" />
+                      Download Resume
+                    </a>
+                  </Magnetic>
                 </div>
               </div>
 
@@ -176,20 +187,7 @@ const Resume = () => {
                     </h2>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {SKILL_CATEGORIES.map((skillGroup, idx) => (
-                      <div key={idx}>
-                        <h3 className="font-medium text-brand-yellow mb-2">{skillGroup.category}</h3>
-                        <div className="flex flex-wrap gap-2">
-                          {skillGroup.items.map((skill) => (
-                            <span key={skill} className="px-3 py-1 bg-white/10 rounded-full text-sm">
-                              {skill}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+                  <SkillGraph />
                 </div>
 
                 {/* Projects */}
