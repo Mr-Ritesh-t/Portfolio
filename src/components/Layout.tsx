@@ -5,6 +5,7 @@ import Footer from './Footer';
 import CommandMenu from './CommandMenu';
 import ScrollProgress from './ScrollProgress';
 import SystemTray from './SystemTray';
+import SystemStats from './SystemStats';
 
 const Layout = () => {
   const location = useLocation();
