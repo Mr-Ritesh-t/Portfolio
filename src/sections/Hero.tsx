@@ -34,7 +34,7 @@ const Hero = () => {
               href="#contact"
               className="inline-block py-3 px-8 bg-brand-blue text-white font-black rounded-xl hover:bg-brand-blue/90 transition-all shadow-lg shadow-brand-blue/20 uppercase tracking-widest text-xs"
             >
-              START A PROJECT
+              CONTACT ME
             </a>
           </Magnetic>
           <Magnetic>
@@ -42,7 +42,7 @@ const Hero = () => {
               href="#resume"
               className="inline-block py-3 px-8 bg-transparent text-white border border-white/20 font-black rounded-xl hover:bg-white/5 transition-all uppercase tracking-widest text-xs"
             >
-              VIEW SOLUTIONS
+              MY RESUME
             </a>
           </Magnetic>
         </div>

@@ -7,11 +7,15 @@ interface Project {
   title: string;
   category: string;
   description: string;
+  problem: string;
+  solution: string;
+  result: string;
   technologies: string[];
   image: string;
   date: string;
   link: string;
   github: string;
+  highlights: string[];
 }
 
 import { PERSONAL_INFO, PROJECTS } from '../data';
@@ -34,9 +38,9 @@ const ProjectCarousel = () => {
   return (
     <div className="relative py-20 px-4 overflow-visible" ref={containerRef}>
       {/* 3D Stage */}
-      <div className="relative h-[600px] w-full max-w-6xl mx-auto flex items-center justify-center perspective-[2000px]">
+      <div className="relative h-[700px] w-full max-w-6xl mx-auto flex items-center justify-center perspective-[2000px]">
         <AnimatePresence mode="popLayout">
-          {PROJECTS.map((project, i) => {
+          {PROJECTS.map((project: Project, i) => {
             const isCenter = i === index;
             const isLeft = i === (index - 1 + PROJECTS.length) % PROJECTS.length;
             const isRight = i === (index + 1) % PROJECTS.length;
@@ -74,22 +78,22 @@ const ProjectCarousel = () => {
                   if (info.offset.x > 100) prev();
                   else if (info.offset.x < -100) next();
                 }}
-                className={`absolute w-full max-w-3xl h-[520px] md:h-auto md:aspect-video rounded-3xl overflow-hidden border border-white/10 shadow-2xl ${isCenter ? 'z-30 cursor-grab active:cursor-grabbing' : 'z-10 pointer-events-none'}`}
+                className={`absolute w-full max-w-4xl h-[600px] md:h-auto md:aspect-video rounded-3xl overflow-hidden border border-white/10 shadow-2xl ${isCenter ? 'z-30 cursor-grab active:cursor-grabbing' : 'z-10 pointer-events-none'}`}
                 style={{ transformStyle: 'preserve-3d' }}
               >
                 {/* Project Image */}
                 <div className="absolute inset-0">
-                  <img src={project.image} alt={project.title} className="w-full h-full object-cover opacity-60" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-brand-black via-brand-black/60 to-transparent" />
+                  <img src={project.image} alt={project.title} className="w-full h-full object-cover opacity-40" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-black via-brand-black/90 to-transparent" />
                 </div>
 
                 {/* Content Overlay */}
-                <div className="absolute inset-0 p-5 md:p-8 flex flex-col justify-end">
+                <div className="absolute inset-0 p-6 md:p-10 flex flex-col justify-end">
                   <div className="relative z-10">
                     <motion.div 
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: isCenter ? 1 : 0, y: isCenter ? 0 : 20 }}
-                      className="space-y-3 md:space-y-4"
+                      className="space-y-4 md:space-y-6"
                     >
                       <div className="flex items-center gap-3">
                         <span className="px-3 py-1 bg-brand-blue/30 backdrop-blur-md rounded-full text-[9px] md:text-[10px] font-bold uppercase tracking-widest border border-brand-blue/30">
@@ -101,22 +105,29 @@ const ProjectCarousel = () => {
                         </div>
                       </div>
 
-                      <h2 className="text-2xl md:text-5xl font-black tracking-tight text-white uppercase italic leading-tight">
+                      <h2 className="text-3xl md:text-6xl font-black tracking-tight text-white uppercase italic leading-tight">
                         {project.title}
                       </h2>
 
-                      <p className="text-white/60 text-xs md:text-sm max-w-xl leading-relaxed line-clamp-2 md:line-clamp-none">
-                        {project.description}
-                      </p>
-
-                      {/* Highlights */}
-                      <div className="hidden md:flex flex-wrap gap-x-4 gap-y-1 text-[10px] text-brand-blue/60 font-medium">
-                        {project.highlights.map((h, idx) => (
-                          <div key={idx} className="flex items-center gap-1.5">
-                            <Zap size={10} />
-                            {h}
+                      {/* Problem/Result Grid */}
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 max-w-4xl">
+                        <div className="space-y-2">
+                          <span className="text-[10px] font-black tracking-[0.2em] text-brand-blue uppercase">The Problem</span>
+                          <p className="text-white/60 text-xs md:text-sm leading-relaxed italic">
+                            "{project.problem}"
+                          </p>
+                        </div>
+                        <div className="space-y-2">
+                          <span className="text-[10px] font-black tracking-[0.2em] text-emerald-400 uppercase">The Outcome</span>
+                          <div className="space-y-1">
+                            {project.highlights.map((h, idx) => (
+                              <div key={idx} className="flex items-center gap-2 text-white/90 text-xs md:text-sm font-bold">
+                                <Zap size={12} className="text-emerald-400 shrink-0" />
+                                {h}
+                              </div>
+                            ))}
                           </div>
-                        ))}
+                        </div>
                       </div>
 
                       <div className="flex flex-wrap gap-1.5 pt-1">

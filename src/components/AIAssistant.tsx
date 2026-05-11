@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Send, Bot, User, ChevronLeft, ChevronRight, Zap, Activity, Shield, Cpu, Terminal as TerminalIcon, Download, Globe, Github, Linkedin, MessageSquare, Play, Sparkles } from 'lucide-react';
 import { useSound } from './SoundProvider';
-import { PERSONAL_INFO, SKILL_CATEGORIES, EDUCATION, CERTIFICATIONS } from '../data';
+import { PERSONAL_INFO, SKILL_CATEGORIES, EDUCATION, CERTIFICATIONS, PROJECTS } from '../data';
 
 interface Message {
   id: string;
@@ -98,7 +98,7 @@ const AIAssistant = () => {
           setIsTyping(false);
           
           if (step < TOUR_STEPS.length - 1) {
-            setTimeout(() => setStep(prev => prev + 1), 8000); // 8 seconds for a relaxed feel
+            setTimeout(() => setStep(prev => prev + 1), 8000); 
           } else {
             setTimeout(() => {
               setMessages(prev => [...prev, { id: 'end', text: "That's the end of our little tour! Feel free to browse around or ask me anything.", sender: 'ai', timestamp: new Date() }]);
@@ -145,31 +145,136 @@ const AIAssistant = () => {
     const userMsg: Message = { id: Date.now().toString(), text: val, sender: 'user', timestamp: new Date() };
     setMessages(prev => [...prev, userMsg]);
     setInput('');
+    setIsTyping(true);
     playClick();
 
-    // TOUR MODE TRIGGER
-    if (val.toLowerCase().includes('tour') || val.toLowerCase().includes('guide')) {
-      setMode('tour');
-      setStep(0);
-      setIsOpen(false); // Close sidebar for tour as requested
+    // 1. Check for local command triggers first (Tour/Contact)
+    const lowerInput = val.toLowerCase();
+    if (lowerInput.includes('tour') || lowerInput.includes('guide')) {
+      setTimeout(() => {
+        setMessages(prev => [...prev, { id: 'tour-init', text: "Initializing Guided Tour Protocol. I will now walk you through the core sectors of Ritesh's digital identity.", sender: 'ai', timestamp: new Date() }]);
+        setMode('tour');
+        setIsOpen(false);
+        setIsTyping(false);
+      }, 1000);
       return;
     }
 
-    // CONTACT MODE TRIGGER
-    if (val.toLowerCase().includes('message') || val.toLowerCase().includes('send') || val.toLowerCase().includes('hire')) {
-      setMode('contact');
-      setStep(0);
-      return;
+    // 2. Attempt Hyper-Speed Brain (Groq API)
+    const GROQ_KEY = import.meta.env.VITE_GROQ_API_KEY;
+    const systemContext = `
+      You are ERA, a highly advanced AI assistant for Ritesh Tayade's professional portfolio.
+      Ritesh is a Full-Stack Engineer & Digital Strategist.
+      
+      DATA ARCHIVE:
+      - Projects: ${JSON.stringify(PROJECTS)}
+      - Personal: ${JSON.stringify(PERSONAL_INFO)}
+      - Skills: ${JSON.stringify(SKILL_CATEGORIES)}
+      - Education: ${JSON.stringify(EDUCATION)}
+      - Certs: ${JSON.stringify(CERTIFICATIONS)}
+      
+      GUIDELINES:
+      - Be professional, strategic, and slightly futuristic (Neural OS vibe).
+      - Focus on business value and results.
+      - If asked about something not in the data, answer based on your general knowledge but link it back to Ritesh's skills.
+      - Keep responses concise but impactful.
+    `;
+
+    if (GROQ_KEY) {
+      try {
+        const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${GROQ_KEY}`
+          },
+          body: JSON.stringify({
+            model: 'llama-3.3-70b-versatile',
+            messages: [
+              { role: 'system', content: systemContext },
+              { role: 'user', content: val }
+            ],
+            temperature: 0.7,
+            max_tokens: 500
+          })
+        });
+
+        if (!response.ok) throw new Error(`GROQ_STATUS: ${response.status}`);
+
+        const data = await response.json();
+        const aiResponse = data.choices[0].message.content;
+        
+        setMessages(prev => [...prev, { id: Date.now().toString(), text: aiResponse, sender: 'ai', timestamp: new Date() }]);
+        setIsTyping(false);
+        return;
+      } catch (error: any) {
+        console.error("Groq Link Failed:", error);
+      }
     }
 
-    // Normal logic follows...
-    setIsTyping(true);
+    // 3. Attempt Neural Brain (Gemini API) as Backup
+    const GEMINI_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+    if (GEMINI_KEY) {
+      try {
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${GEMINI_KEY}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: `${systemContext}\n\nUser Question: ${val}` }] }]
+          })
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json().catch(() => ({}));
+          throw new Error(`GEMINI_STATUS: ${response.status} | ${errorData.error?.message || 'UNKNOWN_ERROR'}`);
+        }
+
+        const data = await response.json();
+        const aiResponse = data.candidates[0].content.parts[0].text;
+        
+        setMessages(prev => [...prev, { id: Date.now().toString(), text: aiResponse, sender: 'ai', timestamp: new Date() }]);
+        setIsTyping(false);
+        return;
+      } catch (error: any) {
+        console.error("Gemini Link Failed:", error);
+        setMessages(prev => [...prev, { id: 'debug-error', text: `SYSTEM_ALERT: Neural Brain Link unstable. [${error.message}]. Falling back to local intelligence protocols.`, sender: 'ai', timestamp: new Date() }]);
+      }
+    } else {
+      console.warn("ERA: No AI API keys found in environment.");
+    }
+
+    // 3. Fallback to Smart Keyword Router
     setTimeout(() => {
-      // (Simplified logic for this turn to focus on tour overlay)
-      const aiMsg: Message = { id: Date.now().toString(), text: "Direct query received. Analysis operational.", sender: 'ai', timestamp: new Date() };
+      let response = "";
+
+      if (lowerInput.includes('project') || lowerInput.includes('work')) {
+        const projectNames = PROJECTS.map(p => p.title).join(', ');
+        response = `I have ${PROJECTS.length} high-impact systems in my archives: ${projectNames}. Ritesh specializes in Marketplace Logistics (Tiffo), Productivity Ecosystems (Study Sanctuary), and Enterprise SaaS (NeuroFlow). Which project should we analyze?`;
+      } else if (lowerInput.includes('contact') || lowerInput.includes('email') || lowerInput.includes('hire') || lowerInput.includes('message')) {
+        response = `Uplink ready. You can reach Ritesh at ${PERSONAL_INFO.email}. He is currently based in ${PERSONAL_INFO.location} and is available for strategic engineering consulting and full-stack development.`;
+      } else if (lowerInput.includes('skill') || lowerInput.includes('tech') || lowerInput.includes('stack') || lowerInput.includes('know')) {
+        const topSkills = SKILL_CATEGORIES.map(cat => `${cat.title}: ${cat.skills.slice(0, 3).join(', ')}`).join(' | ');
+        response = `His technical arsenal is categorized into: ${topSkills}. He focuses on building robust, scalable architectures rather than just writing code.`;
+      } else if (lowerInput.includes('education') || lowerInput.includes('study') || lowerInput.includes('college') || lowerInput.includes('degree')) {
+        const edu = EDUCATION.map(e => `${e.degree} from ${e.institution} (${e.year})`).join('; ');
+        response = `Ritesh holds a ${edu}. This academic foundation in Information Technology and Computer Science drives his engineering precision.`;
+      } else if (lowerInput.includes('certification') || lowerInput.includes('certificate')) {
+        const certs = CERTIFICATIONS.map(c => c.title).join(', ');
+        response = `I have verified certifications in: ${certs}. These include specialized training in Frontend and Full-Stack development from recognized institutions.`;
+      } else if (lowerInput.includes('philosophy') || lowerInput.includes('think') || lowerInput.includes('goal')) {
+        response = `Ritesh's engineering philosophy is: "${PERSONAL_INFO.philosophy}" He prioritizes business results over technical vanity.`;
+      } else if (lowerInput.includes('who') || lowerInput.includes('about') || lowerInput.includes('ritesh')) {
+        response = `${PERSONAL_INFO.description} He is a ${PERSONAL_INFO.role} committed to building high-performance digital products that scale.`;
+      } else if (lowerInput.includes('hello') || lowerInput.includes('hi') || lowerInput.includes('hey')) {
+        response = "Greetings. I am ERA. I have full access to Ritesh's professional archives. You can ask me about his 'projects', 'education', 'technical skills', or 'philosophy'. How shall we begin?";
+      } else {
+        response = "Query processed. I've scanned Ritesh's entire professional archive. While I don't have a direct match for that specific question, I can provide detailed data on his 'projects', 'B.Tech education', 'full-stack skills', or 'contact information'. What is your priority?";
+      }
+
+      const aiMsg: Message = { id: (Date.now() + 1).toString(), text: response, sender: 'ai', timestamp: new Date() };
       setMessages(prev => [...prev, aiMsg]);
       setIsTyping(false);
-    }, 1500);
+    }, 1000);
   };
 
   return (
@@ -249,7 +354,18 @@ const AIAssistant = () => {
                     <motion.div animate={{ scale: [1, 1.2, 1], opacity: [0, 0.5, 0] }} transition={{ repeat: Infinity, duration: 2 }} className="absolute inset-0 bg-brand-blue rounded-2xl" />
                   </div>
                   <div>
-                    <h2 className="text-lg font-black uppercase tracking-[0.3em] text-white">ERA</h2>
+                    <h2 className="text-lg font-black uppercase tracking-[0.3em] text-white flex items-center gap-2">
+                      ERA
+                      {import.meta.env.VITE_GEMINI_API_KEY && (
+                        <motion.span 
+                          initial={{ opacity: 0, scale: 0.5 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          className="px-1.5 py-0.5 bg-brand-blue/20 border border-brand-blue/50 rounded text-[7px] text-brand-blue font-bold tracking-tighter"
+                        >
+                          NEURAL_LINK
+                        </motion.span>
+                      )}
+                    </h2>
                     <div className="flex items-center gap-2">
                       <Activity size={10} className="text-brand-blue" />
                       <span className="text-[9px] text-brand-blue font-mono tracking-widest">{telemetry}</span>
