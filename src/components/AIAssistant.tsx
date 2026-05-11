@@ -15,11 +15,26 @@ interface Message {
 type Mode = 'chat' | 'tour' | 'contact';
 
 const TOUR_STEPS = [
-  { section: 'home', text: "Welcome to the Neural Core. This is the heart of Ritesh's digital identity, where creativity meets system logic." },
-  { section: 'work', text: "Scanning Project Archive... Here you can see Ritesh's featured work, from immersive clones to full-stack management systems." },
-  { section: 'about', text: "Accessing biological data... Ritesh is an IT specialist with a strong foundation in Computer Science and a passion for modern web architecture." },
-  { section: 'resume', text: "Verifying credentials... 100% authenticated. His journey spans from a Diploma in Computer Science to a B.Tech in IT." },
-  { section: 'contact', text: "We have reached the communication terminal. I can transmit a secure message directly to Ritesh from here." }
+  { 
+    section: 'home', 
+    text: "Hi! I'm Ritesh. Welcome to my digital home. I love building things that help people and businesses grow." 
+  },
+  { 
+    section: 'work', 
+    text: "These are some of the projects I've built lately. I focus on making things fast, reliable, and easy to use." 
+  },
+  { 
+    section: 'about', 
+    text: "I'm a student of Information Technology with a passion for problem-solving. I'm always learning new things to stay ahead." 
+  },
+  { 
+    section: 'resume', 
+    text: "I've spent years honing my skills in computer science. You can see my full educational journey and certifications here." 
+  },
+  { 
+    section: 'contact', 
+    text: "I'd love to hear from you! Whether you have a project idea or just want to say hi, feel free to reach out." 
+  }
 ];
 
 const AIAssistant = () => {
@@ -28,7 +43,7 @@ const AIAssistant = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      text: "ERA System v5.3.0 [NEURAL_OVERLAY_ACTIVE]. All sectors operational. How can I assist you with Ritesh's data today?",
+      text: "Hello! I'm ERA, Ritesh's AI assistant. How can I help you explore his work today?",
       sender: 'ai',
       timestamp: new Date()
     }
@@ -37,7 +52,7 @@ const AIAssistant = () => {
   const [mode, setMode] = useState<Mode>('chat');
   const [step, setStep] = useState(0);
   const [contactData, setContactData] = useState({ name: '', email: '', message: '' });
-  const [telemetry, setTelemetry] = useState('FETCHING_DATA');
+  const [telemetry, setTelemetry] = useState('SYSTEM_READY');
   const scrollRef = useRef<HTMLDivElement>(null);
   const { playClick, playHover } = useSound();
 
@@ -52,9 +67,9 @@ const AIAssistant = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const codes = ['0x442', '0x991', '0x102', 'SEC_STABLE', 'NET_ALIGNED', 'CORE_OPTIMIZED', 'SYNC_95%'];
+      const codes = ['STABLE', 'ONLINE', 'READY', 'SYNCED'];
       setTelemetry(codes[Math.floor(Math.random() * codes.length)]);
-    }, 2000);
+    }, 5000);
     return () => clearInterval(interval);
   }, []);
 
@@ -64,17 +79,18 @@ const AIAssistant = () => {
     }
   }, [messages, isTyping]);
 
-  // Guided Tour Logic (with Overlay Support)
+  // Friendly Guided Tour Logic
   useEffect(() => {
     if (mode === 'tour') {
       const currentStep = TOUR_STEPS[step];
       if (currentStep) {
         setIsTyping(true);
         const timer = setTimeout(() => {
-          // Slow smooth scroll
           const target = document.getElementById(currentStep.section);
           if (target) {
-            target.scrollIntoView({ behavior: 'smooth' });
+            const yOffset = -100; 
+            const y = target.getBoundingClientRect().top + window.pageYOffset + yOffset;
+            window.scrollTo({top: y, behavior: 'smooth'});
           }
 
           const aiMsg: Message = { id: Date.now().toString(), text: currentStep.text, sender: 'ai', timestamp: new Date() };
@@ -82,15 +98,15 @@ const AIAssistant = () => {
           setIsTyping(false);
           
           if (step < TOUR_STEPS.length - 1) {
-            setTimeout(() => setStep(prev => prev + 1), 6000); // 6 seconds per step for reading
+            setTimeout(() => setStep(prev => prev + 1), 8000); // 8 seconds for a relaxed feel
           } else {
             setTimeout(() => {
-              setMessages(prev => [...prev, { id: 'end', text: "Neural Tour Complete. System returning to standby.", sender: 'ai', timestamp: new Date() }]);
+              setMessages(prev => [...prev, { id: 'end', text: "That's the end of our little tour! Feel free to browse around or ask me anything.", sender: 'ai', timestamp: new Date() }]);
               setMode('chat');
               setStep(0);
-            }, 4000);
+            }, 5000);
           }
-        }, 1500);
+        }, 2000);
         return () => clearTimeout(timer);
       }
     }
@@ -162,46 +178,33 @@ const AIAssistant = () => {
       <AnimatePresence>
         {mode === 'tour' && !isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: 50, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.9 }}
-            className="fixed bottom-10 left-1/2 -translate-x-1/2 z-[200] w-[90%] max-w-lg"
+            initial={{ opacity: 0, y: 100 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 50 }}
+            key={step}
+            className="fixed bottom-24 md:bottom-10 left-4 right-4 md:left-1/2 md:-translate-x-1/2 z-[200] md:w-full md:max-w-md"
           >
-            <div className="bg-brand-black/40 backdrop-blur-3xl border border-brand-blue/30 p-6 rounded-3xl shadow-[0_20px_50px_rgba(64,48,255,0.3)] relative overflow-hidden group">
-              {/* Scanline Effect */}
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-brand-blue/5 to-transparent h-[200%] animate-scan-fast pointer-events-none" />
-              
-              <div className="flex items-start gap-4 relative z-10">
-                <div className="w-10 h-10 bg-brand-blue/20 rounded-xl flex items-center justify-center border border-brand-blue/50">
-                  <Sparkles size={20} className="text-brand-blue" />
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center justify-between mb-1">
-                    <span className="text-[10px] font-black tracking-widest text-brand-blue uppercase">ERA_NEURAL_GUIDE</span>
-                    <span className="text-[8px] font-mono text-white/30 uppercase">{telemetry}</span>
-                  </div>
-                  <p className="text-sm text-white/90 leading-relaxed font-medium">
-                    {TOUR_STEPS[step]?.text}
-                  </p>
-                </div>
-                <button 
-                  onClick={() => { setMode('chat'); playClick(); }}
-                  className="p-2 hover:bg-white/5 rounded-lg text-white/20 hover:text-white"
-                >
-                  <X size={16} />
-                </button>
+            <div className="bg-white/10 backdrop-blur-2xl border border-white/20 p-4 md:p-6 rounded-[24px] md:rounded-[32px] shadow-2xl flex items-center gap-3 md:gap-4">
+              <div className="w-10 h-10 md:w-12 md:h-12 bg-brand-blue rounded-xl md:rounded-2xl flex items-center justify-center shrink-0 shadow-lg">
+                <Bot size={20} className="text-white md:hidden" />
+                <Bot size={24} className="text-white hidden md:block" />
               </div>
-
-              {/* Progress Bar */}
-              <div className="absolute bottom-0 left-0 h-1 bg-white/10 w-full">
-                <motion.div 
-                  initial={{ width: 0 }}
-                  animate={{ width: '100%' }}
-                  transition={{ duration: 6, ease: "linear" }}
-                  key={step}
-                  className="h-full bg-brand-blue shadow-[0_0_10px_#4030FF]"
-                />
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-0.5 md:mb-1">
+                  <span className="text-[9px] md:text-[10px] font-bold tracking-widest text-brand-blue uppercase">Tour Guide</span>
+                  <div className="w-1 h-1 rounded-full bg-brand-blue animate-pulse" />
+                </div>
+                <p className="text-[12px] md:text-sm text-white font-medium leading-snug">
+                  {TOUR_STEPS[step]?.text}
+                </p>
               </div>
+              <button 
+                onClick={() => { setMode('chat'); playClick(); }}
+                className="p-1.5 md:p-2 hover:bg-white/10 rounded-full text-white/40 hover:text-white transition-colors"
+              >
+                <X size={18} className="md:hidden" />
+                <X size={20} className="hidden md:block" />
+              </button>
             </div>
           </motion.div>
         )}
