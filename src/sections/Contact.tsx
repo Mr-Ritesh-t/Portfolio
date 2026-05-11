@@ -9,6 +9,10 @@ const Contact = () => {
   const { toast } = useToast();
   const apiKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY; 
 
+  if (!apiKey) {
+    console.warn("Web3Forms Access Key is missing. Please add VITE_WEB3FORMS_ACCESS_KEY to your .env file or Vercel environment variables.");
+  }
+
   const {
     register,
     handleSubmit,
