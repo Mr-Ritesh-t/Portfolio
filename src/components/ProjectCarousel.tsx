@@ -105,66 +105,66 @@ const ProjectCarousel = () => {
                   if (info.offset.x > 100) prev();
                   else if (info.offset.x < -100) next();
                 }}
-                className={`absolute w-full max-w-3xl aspect-video rounded-3xl overflow-hidden border border-white/10 shadow-2xl ${isCenter ? 'z-30 cursor-grab active:cursor-grabbing' : 'z-10 pointer-events-none'}`}
+                className={`absolute w-full max-w-3xl h-[520px] md:h-auto md:aspect-video rounded-3xl overflow-hidden border border-white/10 shadow-2xl ${isCenter ? 'z-30 cursor-grab active:cursor-grabbing' : 'z-10 pointer-events-none'}`}
                 style={{ transformStyle: 'preserve-3d' }}
               >
                 {/* Project Image */}
                 <div className="absolute inset-0">
-                  <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-brand-black via-brand-black/20 to-transparent" />
+                  <img src={project.image} alt={project.title} className="w-full h-full object-cover opacity-60" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-black via-brand-black/60 to-transparent" />
                 </div>
 
                 {/* Content Overlay */}
-                <div className="absolute inset-0 p-8 flex flex-col justify-end">
+                <div className="absolute inset-0 p-5 md:p-8 flex flex-col justify-end">
                   <div className="relative z-10">
                     <motion.div 
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: isCenter ? 1 : 0, y: isCenter ? 0 : 20 }}
-                      className="space-y-4"
+                      className="space-y-3 md:space-y-4"
                     >
                       <div className="flex items-center gap-3">
-                        <span className="px-3 py-1 bg-brand-blue/30 backdrop-blur-md rounded-full text-[10px] font-bold uppercase tracking-widest border border-brand-blue/30">
+                        <span className="px-3 py-1 bg-brand-blue/30 backdrop-blur-md rounded-full text-[9px] md:text-[10px] font-bold uppercase tracking-widest border border-brand-blue/30">
                           {project.category}
                         </span>
-                        <div className="flex items-center gap-1.5 text-white/40 text-[10px] uppercase font-bold tracking-widest">
-                          <Calendar size={12} />
+                        <div className="flex items-center gap-1.5 text-white/40 text-[9px] md:text-[10px] uppercase font-bold tracking-widest">
+                          <Calendar size={10} />
                           {project.date}
                         </div>
                       </div>
 
-                      <h2 className="text-3xl md:text-5xl font-black tracking-tight text-white uppercase italic">
+                      <h2 className="text-2xl md:text-5xl font-black tracking-tight text-white uppercase italic leading-tight">
                         {project.title}
                       </h2>
 
-                      <p className="text-white/60 text-sm max-w-xl leading-relaxed">
+                      <p className="text-white/60 text-xs md:text-sm max-w-xl leading-relaxed line-clamp-3 md:line-clamp-none">
                         {project.description}
                       </p>
 
-                      <div className="flex flex-wrap gap-2 pt-2">
-                        {project.technologies.map(tech => (
-                          <span key={tech} className="text-[10px] font-mono text-brand-blue/80 bg-brand-blue/5 border border-brand-blue/20 px-2 py-1 rounded">
+                      <div className="flex flex-wrap gap-1.5 pt-1">
+                        {project.technologies.slice(0, 5).map(tech => (
+                          <span key={tech} className="text-[9px] font-mono text-brand-blue/80 bg-brand-blue/5 border border-brand-blue/20 px-1.5 py-0.5 rounded">
                             #{tech}
                           </span>
                         ))}
                       </div>
 
-                      <div className="flex gap-4 pt-4">
+                      <div className="flex flex-col sm:flex-row gap-3 pt-3 md:pt-4">
                         <a 
                           href={project.link} 
                           target="_blank" 
                           rel="noreferrer"
-                          className="flex items-center gap-2 bg-brand-blue hover:bg-brand-blue/80 text-white px-6 py-3 rounded-xl text-sm font-bold transition-all hover:scale-105"
+                          className="flex items-center justify-center gap-2 bg-brand-blue hover:bg-brand-blue/80 text-white px-4 md:px-6 py-2.5 md:py-3 rounded-xl text-xs md:text-sm font-bold transition-all"
                         >
-                          <ExternalLink size={16} />
+                          <ExternalLink size={14} />
                           Live Demo
                         </a>
                         <a 
                           href={project.github} 
                           target="_blank" 
                           rel="noreferrer"
-                          className="flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white px-6 py-3 rounded-xl text-sm font-bold transition-all border border-white/10"
+                          className="flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white px-4 md:px-6 py-2.5 md:py-3 rounded-xl text-xs md:text-sm font-bold transition-all border border-white/10"
                         >
-                          <Github size={16} />
+                          <Github size={14} />
                           Source
                         </a>
                       </div>
