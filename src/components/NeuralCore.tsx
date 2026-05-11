@@ -1,4 +1,4 @@
-import React, { useRef, useMemo } from 'react';
+import React, { useRef, useMemo, Suspense } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Float, Sphere, MeshDistortMaterial, Points, PointMaterial } from '@react-three/drei';
 import * as THREE from 'three';
@@ -78,12 +78,14 @@ const NeuralCore = () => {
   return (
     <div className="absolute inset-0 z-0 opacity-60">
       <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
-        <ambientLight intensity={0.5} />
-        <pointLight position={[10, 10, 10]} intensity={1} color="#4030FF" />
-        <spotLight position={[-10, 10, 10]} angle={0.15} penumbra={1} intensity={1} color="#4030FF" />
-        
-        <Core />
-        <Particles count={2000} />
+        <Suspense fallback={null}>
+          <ambientLight intensity={0.5} />
+          <pointLight position={[10, 10, 10]} intensity={1} color="#4030FF" />
+          <spotLight position={[-10, 10, 10]} angle={0.15} penumbra={1} intensity={1} color="#4030FF" />
+          
+          <Core />
+          <Particles count={2000} />
+        </Suspense>
       </Canvas>
     </div>
   );
