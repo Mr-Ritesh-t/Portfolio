@@ -8,8 +8,10 @@ import {
   Heart,
   Download
 } from 'lucide-react';
-import { PERSONAL_INFO, SKILL_CATEGORIES, EDUCATION, CERTIFICATIONS, STRENGTHS, HOBBIES } from '@/data';
+import { PERSONAL_INFO, SKILL_CATEGORIES, EDUCATION, CERTIFICATIONS, STRENGTHS, HOBBIES, SERVICES } from '@/data';
 import Magnetic from '@/components/Magnetic';
+import { motion } from 'framer-motion';
+import { Layout, Server, Zap, Database } from 'lucide-react';
 
 const Resume = () => {
   return (
@@ -29,7 +31,30 @@ const Resume = () => {
         </Magnetic>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+      {/* Expertise / Services Section */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-10">
+        {SERVICES.map((service, idx) => (
+          <motion.div
+            key={service.title}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: idx * 0.1 }}
+            className="p-6 bg-brand-blue/5 border border-brand-blue/10 rounded-2xl group hover:bg-brand-blue/10 transition-all"
+          >
+            <div className="flex items-center gap-4 mb-3">
+              <div className="w-10 h-10 rounded-xl bg-brand-blue/10 flex items-center justify-center text-brand-blue border border-brand-blue/20">
+                {idx === 0 ? <Layout size={20} /> : idx === 1 ? <Server size={20} /> : idx === 2 ? <Zap size={20} /> : <Database size={20} />}
+              </div>
+              <h4 className="text-sm font-black uppercase tracking-widest text-white">{service.title}</h4>
+            </div>
+            <p className="text-xs text-white/40 leading-relaxed group-hover:text-white/60 transition-colors">
+              {service.description}
+            </p>
+          </motion.div>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 pt-10">
         {/* Education */}
         <div className="space-y-8">
           <div className="flex items-center gap-3 text-brand-blue">

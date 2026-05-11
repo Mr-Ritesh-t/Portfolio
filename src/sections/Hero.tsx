@@ -1,6 +1,7 @@
 import NeuralCore from '@/components/NeuralCore';
 import Typewriter from 'typewriter-effect';
 import Magnetic from '@/components/Magnetic';
+import { PERSONAL_INFO } from '@/data';
 
 const Hero = () => {
   return (
@@ -8,13 +9,13 @@ const Hero = () => {
       <NeuralCore />
 
       <div className="relative z-10">
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-2 tracking-tight">
-          HEY, I'M RITESH TAYADE
+        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-2 tracking-tight uppercase">
+          HEY, I'M {PERSONAL_INFO.name}
         </h1>
         <div className="text-2xl md:text-4xl font-medium text-brand-blue mb-6 tracking-tight h-[40px] md:h-[48px]">
           <Typewriter
             options={{
-              strings: ['Full-Stack Developer', 'React Enthusiast', 'Python Developer', 'UI/UX Enthusiast'],
+              strings: [PERSONAL_INFO.role, 'React Architect', 'Django Specialist', 'Full-Stack Engineer'],
               autoStart: true,
               loop: true,
               wrapperClassName: "text-brand-blue",
@@ -23,25 +24,25 @@ const Hero = () => {
           />
         </div>
         
-        <p className="text-xl text-white/80 max-w-2xl mx-auto mb-12">
-          A Web Developer passionate about building modern and interactive web applications with strong skills in Python, Java, JavaScript, React.js, and Django.
+        <p className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto mb-12 leading-relaxed">
+          {PERSONAL_INFO.shortDescription}
         </p>
         
         <div className="flex flex-wrap justify-center gap-4">
           <Magnetic>
             <a 
-              href="#work"
-              className="inline-block py-3 px-8 bg-brand-blue text-white font-medium rounded-md hover:bg-brand-blue/90 transition-colors"
+              href="#contact"
+              className="inline-block py-3 px-8 bg-brand-blue text-white font-black rounded-xl hover:bg-brand-blue/90 transition-all shadow-lg shadow-brand-blue/20 uppercase tracking-widest text-xs"
             >
-              MY PROJECTS
+              START A PROJECT
             </a>
           </Magnetic>
           <Magnetic>
             <a 
-              href="#contact"
-              className="inline-block py-3 px-8 bg-transparent text-white border border-white/20 font-medium rounded-md hover:bg-white/5 transition-colors"
+              href="#resume"
+              className="inline-block py-3 px-8 bg-transparent text-white border border-white/20 font-black rounded-xl hover:bg-white/5 transition-all uppercase tracking-widest text-xs"
             >
-              CONTACT ME
+              VIEW SOLUTIONS
             </a>
           </Magnetic>
         </div>

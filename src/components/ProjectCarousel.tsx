@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, ExternalLink, Github, Calendar, Tag } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ExternalLink, Github, Calendar, Tag, Zap } from 'lucide-react';
 import { useSound } from './SoundProvider';
 
 interface Project {
@@ -14,38 +14,7 @@ interface Project {
   github: string;
 }
 
-const projects: Project[] = [
-  {
-    title: "Sundown Studio Clone",
-    category: "Web Development",
-    description: "A sleek and immersive website designed to showcase creative environments and experiences.",
-    technologies: ["HTML", "CSS", "JavaScript", "GSAP"],
-    image: "https://i.postimg.cc/dtDVw6fG/Sundown.png",
-    date: "2024",
-    link: "https://mr-ritesh-t.github.io/SunDown-clone/",
-    github: "https://github.com/Mr-Ritesh-t/SunDown-clone"
-  },
-  {
-    title: "Work Studio Clone",
-    category: "Web Development",
-    description: "A sleek, immersive website to showcase creative environments with smooth animations.",
-    technologies: ["HTML", "CSS", "JavaScript", "Locomotive Scroll"],
-    link: "https://mr-ritesh-t.github.io/Works.studio-clone/",
-    github: "https://github.com/Mr-Ritesh-t/Works.studio-clone",
-    image: "https://i.postimg.cc/Jn1ryC1d/Work-studio.png",
-    date: "2024"
-  },
-  {
-    title: "Employee Management",
-    category: "Full-Stack Development",
-    description: "A comprehensive web application for managing employees with CRUD operations.",
-    technologies: ["React", "Tailwind CSS", "Firebase"],
-    image: "https://i.postimg.cc/MpszfQj1/Employee-management.png",
-    date: "2024",
-    link: "https://ritesh-employee-managment-system.netlify.app/",
-    github: "https://github.com/Mr-Ritesh-t"
-  }
-];
+import { PERSONAL_INFO, PROJECTS } from '../data';
 
 const ProjectCarousel = () => {
   const [index, setIndex] = useState(0);
@@ -53,12 +22,12 @@ const ProjectCarousel = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const next = () => {
-    setIndex((prev) => (prev + 1) % projects.length);
+    setIndex((prev) => (prev + 1) % PROJECTS.length);
     playClick();
   };
 
   const prev = () => {
-    setIndex((prev) => (prev - 1 + projects.length) % projects.length);
+    setIndex((prev) => (prev - 1 + PROJECTS.length) % PROJECTS.length);
     playClick();
   };
 
@@ -67,10 +36,10 @@ const ProjectCarousel = () => {
       {/* 3D Stage */}
       <div className="relative h-[600px] w-full max-w-6xl mx-auto flex items-center justify-center perspective-[2000px]">
         <AnimatePresence mode="popLayout">
-          {projects.map((project, i) => {
+          {PROJECTS.map((project, i) => {
             const isCenter = i === index;
-            const isLeft = i === (index - 1 + projects.length) % projects.length;
-            const isRight = i === (index + 1) % projects.length;
+            const isLeft = i === (index - 1 + PROJECTS.length) % PROJECTS.length;
+            const isRight = i === (index + 1) % PROJECTS.length;
             
             if (!isCenter && !isLeft && !isRight) return null;
 
@@ -136,9 +105,19 @@ const ProjectCarousel = () => {
                         {project.title}
                       </h2>
 
-                      <p className="text-white/60 text-xs md:text-sm max-w-xl leading-relaxed line-clamp-3 md:line-clamp-none">
+                      <p className="text-white/60 text-xs md:text-sm max-w-xl leading-relaxed line-clamp-2 md:line-clamp-none">
                         {project.description}
                       </p>
+
+                      {/* Highlights */}
+                      <div className="hidden md:flex flex-wrap gap-x-4 gap-y-1 text-[10px] text-brand-blue/60 font-medium">
+                        {project.highlights.map((h, idx) => (
+                          <div key={idx} className="flex items-center gap-1.5">
+                            <Zap size={10} />
+                            {h}
+                          </div>
+                        ))}
+                      </div>
 
                       <div className="flex flex-wrap gap-1.5 pt-1">
                         {project.technologies.slice(0, 5).map(tech => (
@@ -189,7 +168,7 @@ const ProjectCarousel = () => {
           </button>
           
           <div className="flex gap-2">
-            {projects.map((_, i) => (
+            {PROJECTS.map((_, i) => (
               <div 
                 key={i} 
                 className={`h-1 rounded-full transition-all duration-500 ${i === index ? 'w-12 bg-brand-blue shadow-[0_0_10px_#4030FF]' : 'w-2 bg-white/10'}`} 

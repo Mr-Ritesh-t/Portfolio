@@ -17,10 +17,7 @@ import { NotificationProvider } from "./components/SystemNotification";
 
 // Lazy loading pages
 const Index = lazy(() => import("./pages/Index"));
-const Work = lazy(() => import("./pages/Work"));
-const About = lazy(() => import("./pages/About"));
-const Contact = lazy(() => import("./pages/Contact"));
-const Resume = lazy(() => import("./pages/Resume"));
+const ClientPortal = lazy(() => import("./pages/ClientPortal"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
@@ -40,14 +37,11 @@ const App = () => (
             <BrowserRouter>
               <Terminal />
               <Dock />
-              <Suspense fallback={<div className="h-screen w-full flex items-center justify-center bg-brand-black text-white">Loading...</div>}>
+              <Suspense fallback={<div className="h-screen w-full flex items-center justify-center bg-brand-black text-white text-xs font-mono tracking-widest">INITIALIZING_SUBSYSTEMS...</div>}>
                 <Routes>
                   <Route path="/" element={<Layout />}>
                     <Route index element={<Index />} />
-                    <Route path="work" element={<Index />} />
-                    <Route path="about" element={<Index />} />
-                    <Route path="contact" element={<Index />} />
-                    <Route path="resume" element={<Index />} />
+                    <Route path="client" element={<ClientPortal />} />
                     <Route path="*" element={<NotFound />} />
                   </Route>
                 </Routes>

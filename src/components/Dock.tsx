@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Home, Briefcase, User, Mail, FileText, Github, Linkedin, Twitter, Instagram, Phone } from 'lucide-react';
+import { Home, Briefcase, User, Mail, FileText, Github, Linkedin, Twitter, Instagram, LayoutDashboard } from 'lucide-react';
 import { useSound } from './SoundProvider';
 import { PERSONAL_INFO } from '@/data';
 
@@ -11,6 +11,7 @@ const navIcons = [
   { id: 'about', icon: User, label: 'About', path: '#about' },
   { id: 'resume', icon: FileText, label: 'Resume', path: '#resume' },
   { id: 'contact', icon: Mail, label: 'Contact', path: '#contact' },
+  { id: 'client', icon: LayoutDashboard, label: 'Client Portal', path: '/client' },
 ];
 
 const socialIcons = [

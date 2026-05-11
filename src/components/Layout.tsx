@@ -4,8 +4,6 @@ import Navbar from './Navbar';
 import Footer from './Footer';
 import CommandMenu from './CommandMenu';
 import ScrollProgress from './ScrollProgress';
-import SystemTray from './SystemTray';
-import SystemStats from './SystemStats';
 import AIAssistant from './AIAssistant';
 
 const Layout = () => {
@@ -14,8 +12,6 @@ const Layout = () => {
   return (
     <div className="min-h-screen bg-brand-black text-white overflow-hidden flex flex-col relative">
       <ScrollProgress />
-      <SystemTray />
-      <SystemStats />
       <AIAssistant />
       <Navbar />
       <CommandMenu />

@@ -101,6 +101,14 @@ const Navbar: React.FC = () => {
                 {item}
               </a>
             ))}
+            <Link 
+              to="/client" 
+              onClick={playClick}
+              onMouseEnter={playHover}
+              className="px-4 py-2 bg-brand-blue/10 border border-brand-blue/30 rounded-lg text-[10px] font-black uppercase tracking-widest text-brand-blue hover:bg-brand-blue hover:text-white transition-all"
+            >
+              Client Access
+            </Link>
           </nav>
         )}
       </div>
@@ -141,6 +149,14 @@ const Navbar: React.FC = () => {
                 AI ERA
                 <div className="w-3 h-3 bg-brand-blue rounded-full animate-pulse" />
               </button>
+              <Link
+                to="/client"
+                onClick={() => { playClick(); setIsMenuOpen(false); }}
+                className="text-3xl font-medium text-white/40 hover:text-white transition-colors text-left flex flex-col"
+              >
+                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-brand-blue mb-2">SECURE_ACCESS</span>
+                CLIENT PORTAL
+              </Link>
             </nav>
 
             <div className="mt-auto mb-10 bottom-10">

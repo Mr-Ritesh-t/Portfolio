@@ -1,5 +1,7 @@
 import ProjectCarousel from '@/components/ProjectCarousel';
 import AnimatedShape from '@/components/AnimatedShape';
+import { motion } from 'framer-motion';
+import { PROCESS } from '@/data';
 
 const Work = () => {
   return (
@@ -30,38 +32,33 @@ const Work = () => {
         <ProjectCarousel />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pt-20">
-        <div className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-brand-blue/30 transition-all">
-          <h3 className="text-xl font-medium mb-3 text-brand-blue">Frontend</h3>
-          <div className="flex flex-wrap gap-2">
-            {["HTML", "CSS", "JS", "React", "Tailwind"].map(s => (
-              <span key={s} className="text-xs px-2 py-1 bg-white/10 rounded-full">{s}</span>
-            ))}
-          </div>
+      {/* Professional Workflow Section */}
+      <div className="pt-24 space-y-12">
+        <div className="text-center">
+          <h2 className="text-3xl font-black uppercase tracking-widest text-white italic">The Engineering Process</h2>
+          <p className="text-white/40 text-sm mt-2">How I transform your vision into a scalable digital reality.</p>
         </div>
-        <div className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-brand-blue/30 transition-all">
-          <h3 className="text-xl font-medium mb-3 text-brand-blue">Backend</h3>
-          <div className="flex flex-wrap gap-2">
-            {["Python", "Django", "MySQL", "REST APIs"].map(s => (
-              <span key={s} className="text-xs px-2 py-1 bg-white/10 rounded-full">{s}</span>
-            ))}
-          </div>
-        </div>
-        <div className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-brand-blue/30 transition-all">
-          <h3 className="text-xl font-medium mb-3 text-brand-blue">Language</h3>
-          <div className="flex flex-wrap gap-2">
-            {["Java", "C", "C++", "Python", "JS"].map(s => (
-              <span key={s} className="text-xs px-2 py-1 bg-white/10 rounded-full">{s}</span>
-            ))}
-          </div>
-        </div>
-        <div className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-brand-blue/30 transition-all">
-          <h3 className="text-xl font-medium mb-3 text-brand-blue">Tools</h3>
-          <div className="flex flex-wrap gap-2">
-            {["Git", "GitHub", "VS Code", "Firebase"].map(s => (
-              <span key={s} className="text-xs px-2 py-1 bg-white/10 rounded-full">{s}</span>
-            ))}
-          </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {PROCESS.map((item, idx) => (
+            <motion.div
+              key={item.step}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: idx * 0.1 }}
+              className="p-8 bg-brand-blue/5 border border-brand-blue/10 rounded-3xl group hover:bg-brand-blue/10 hover:border-brand-blue/30 transition-all relative overflow-hidden"
+            >
+              <span className="text-4xl font-black text-brand-blue/10 absolute top-4 right-6 group-hover:text-brand-blue/20 transition-colors">
+                {item.step}
+              </span>
+              <h3 className="text-lg font-black text-white uppercase tracking-widest mb-4 group-hover:text-brand-blue transition-colors">
+                {item.title}
+              </h3>
+              <p className="text-xs text-white/50 leading-relaxed group-hover:text-white/70 transition-colors">
+                {item.description}
+              </p>
+            </motion.div>
+          ))}
         </div>
       </div>
     </div>

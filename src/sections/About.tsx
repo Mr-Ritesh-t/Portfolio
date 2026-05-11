@@ -3,6 +3,8 @@ import AnimatedShape from '@/components/AnimatedShape';
 import { PERSONAL_INFO, SKILL_CATEGORIES, EDUCATION } from '@/data';
 import { GitHubCalendar } from 'react-github-calendar';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts';
+import { motion } from 'framer-motion';
+import { Sparkles, Terminal, Layout, Server, Code } from 'lucide-react';
 
 const skillData = [
   { subject: 'Frontend', A: 90, fullMark: 100 },
@@ -47,16 +49,22 @@ const About = () => {
           </h2>
           <div className="space-y-6 text-white/70 leading-relaxed">
             <p>
-              I completed my Diploma in Computer Science and I am currently
-              pursuing my B.Tech in Information Technology in Pune.
+              {PERSONAL_INFO.description}
             </p>
-            <p>
-              My academic path has built a strong foundation in programming,
-              web development, and software engineering principles.
-            </p>
-            <p>
-              I’m constantly learning and improving through projects and self-development, aiming to create impactful digital solutions.
-            </p>
+            {/* Design Philosophy Panel */}
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              className="p-6 bg-brand-blue/5 border-l-2 border-brand-blue rounded-r-2xl max-w-2xl"
+            >
+              <h4 className="text-xs font-black text-brand-blue uppercase tracking-[0.3em] mb-2 flex items-center gap-2">
+                <Sparkles size={14} />
+                Neural Philosophy
+              </h4>
+              <p className="text-sm text-white/50 italic leading-relaxed">
+                "{PERSONAL_INFO.philosophy}"
+              </p>
+            </motion.div>
           </div>
         </div>
 
@@ -91,13 +99,21 @@ const About = () => {
             </ResponsiveContainer>
           </div>
           
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {SKILL_CATEGORIES.map((skillGroup, index) => (
-              <div key={index} className="bg-white/5 rounded-xl p-5 border border-white/10">
-                <h3 className="text-sm font-bold mb-3 text-white/50 uppercase tracking-widest">{skillGroup.category}</h3>
+              <div key={index} className="bg-white/5 rounded-xl p-5 border border-white/10 group hover:bg-brand-blue/5 hover:border-brand-blue/20 transition-all">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="text-brand-blue group-hover:scale-110 transition-transform">
+                    {index === 0 ? <Terminal size={16} /> : index === 1 ? <Layout size={16} /> : index === 2 ? <Server size={16} /> : <Code size={16} />}
+                  </div>
+                  <h3 className="text-sm font-bold text-white/50 uppercase tracking-widest">{skillGroup.category}</h3>
+                </div>
+                <p className="text-[10px] text-white/30 mb-4 leading-relaxed line-clamp-2">
+                  {skillGroup.description}
+                </p>
                 <div className="flex flex-wrap gap-2">
                   {skillGroup.items.map((skill, idx) => (
-                    <span key={idx} className="text-[10px] px-2 py-1 bg-white/10 rounded-full text-white/80">
+                    <span key={idx} className="text-[10px] px-2 py-1 bg-white/10 border border-white/5 rounded-full text-white/80 group-hover:border-brand-blue/20 group-hover:text-white transition-all">
                       {skill}
                     </span>
                   ))}
