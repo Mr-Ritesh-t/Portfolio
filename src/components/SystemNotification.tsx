@@ -45,7 +45,7 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ 
   return (
     <NotificationContext.Provider value={{ notify }}>
       {children}
-      <div className="fixed top-24 left-8 z-[100] flex flex-col gap-4 pointer-events-none w-80">
+      <div className="fixed top-24 left-8 z-[100] hidden md:flex flex-col gap-4 pointer-events-none w-80">
         <AnimatePresence>
           {notifications.map((n) => (
             <motion.div
