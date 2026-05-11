@@ -63,7 +63,7 @@ const BootScreen = () => {
                   animate={{ opacity: 1, x: 0 }}
                   className="text-[10px] md:text-xs text-white/40 flex items-center gap-2"
                 >
-                  <span className="text-brand-blue">>></span>
+                  <span className="text-brand-blue">&gt;&gt;</span>
                   {log}
                 </motion.div>
               ))}
