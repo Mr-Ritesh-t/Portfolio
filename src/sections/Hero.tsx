@@ -1,26 +1,11 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import AnimatedShape from '@/components/AnimatedShape';
+import NeuralCore from '@/components/NeuralCore';
 import Typewriter from 'typewriter-effect';
 import Magnetic from '@/components/Magnetic';
 
 const Hero = () => {
   return (
-    <div className="max-w-4xl mx-auto text-center relative">
-      <AnimatedShape 
-        type="circle" 
-        color="rgba(64, 48, 255, 0.1)" 
-        size={180}
-        className="top-[-100px] right-[-50px] z-0"
-        animationDelay="0s"
-      />
-      <AnimatedShape 
-        type="triangle" 
-        color="rgba(255, 243, 163, 0.2)" 
-        size={120}
-        className="bottom-[-60px] left-[10%] z-0"
-        animationDelay="0.5s"
-      />
+    <div className="max-w-4xl mx-auto text-center relative min-h-[60vh] flex flex-col justify-center">
+      <NeuralCore />
 
       <div className="relative z-10">
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-2 tracking-tight">
