@@ -7,6 +7,7 @@ import Work from '@/sections/Work';
 import About from '@/sections/About';
 import Resume from '@/sections/Resume';
 import Contact from '@/sections/Contact';
+import MatrixRain from '@/components/MatrixRain';
 
 const Index = () => {
   useEffect(() => {
@@ -35,6 +36,7 @@ const Index = () => {
       <main className="relative bg-brand-black snap-y snap-mandatory">
         {/* Background Gradients */}
         <div className="fixed inset-0 z-0 pointer-events-none">
+          <MatrixRain />
           <div className="absolute top-0 -left-[10%] w-[60%] h-[60%] bg-brand-blue/5 blur-[160px] rounded-full animate-pulse" />
           <div className="absolute bottom-0 -right-[10%] w-[60%] h-[60%] bg-brand-blue/10 blur-[160px] rounded-full animate-pulse" style={{ animationDelay: '2s' }} />
         </div>

@@ -98,6 +98,19 @@ const Terminal = () => {
         navigate('/resume');
         newHistory.push('Navigating to resume...');
         break;
+      case 'matrix':
+        newHistory.push('CRITICAL: Accessing neural stream...', 'Matrix override engaged.');
+        document.documentElement.classList.toggle('hacker-mode');
+        break;
+      case 'chat':
+        newHistory.push('Neural Assistant v1.0.4 initialized.', 'Ask me anything about Ritesh:', '  - "skills"', '  - "experience"', '  - "contact"');
+        break;
+      case 'skills':
+        newHistory.push('Ritesh specializes in:', '  - Full Stack: React, Node, Django', '  - Data Science: Python, Java', '  - Design: Framer Motion, TailwindCSS');
+        break;
+      case 'experience':
+        newHistory.push('Current Status: Final Year B.Tech IT student in Pune.', 'Experience: Building high-end web clones and full-stack management systems.');
+        break;
       default:
         if (cmd.startsWith('cd ')) {
           newHistory.push(`Directory not found: ${cmd.split(' ')[1]}`);

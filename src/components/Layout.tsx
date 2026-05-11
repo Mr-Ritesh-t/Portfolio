@@ -4,7 +4,7 @@ import Navbar from './Navbar';
 import Footer from './Footer';
 import CommandMenu from './CommandMenu';
 import ScrollProgress from './ScrollProgress';
-import SystemStats from './SystemStats';
+import SystemTray from './SystemTray';
 
 const Layout = () => {
   const location = useLocation();
@@ -12,6 +12,7 @@ const Layout = () => {
   return (
     <div className="min-h-screen bg-brand-black text-white overflow-hidden flex flex-col relative">
       <ScrollProgress />
+      <SystemTray />
       <SystemStats />
       <Navbar />
       <CommandMenu />
