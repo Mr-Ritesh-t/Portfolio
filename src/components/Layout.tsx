@@ -6,6 +6,7 @@ import CommandMenu from './CommandMenu';
 import ScrollProgress from './ScrollProgress';
 import SystemTray from './SystemTray';
 import SystemStats from './SystemStats';
+import AIAssistant from './AIAssistant';
 
 const Layout = () => {
   const location = useLocation();
@@ -15,6 +16,7 @@ const Layout = () => {
       <ScrollProgress />
       <SystemTray />
       <SystemStats />
+      <AIAssistant />
       <Navbar />
       <CommandMenu />
       <div className="flex-1 flex flex-col">

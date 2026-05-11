@@ -16,20 +16,20 @@ const ScrollSection: React.FC<ScrollSectionProps> = ({ children, id, className =
     offset: ["start end", "end start"]
   });
 
-  const opacity = useTransform(scrollYProgress, [0.1, 0.3, 0.7, 0.9], [0, 1, 1, 0]);
-  const scale = useTransform(scrollYProgress, [0.1, 0.4, 0.6, 0.9], [0.8, 1, 1, 0.8]);
-  const rotateX = useTransform(scrollYProgress, [0, 0.5, 1], [15, 0, -15]);
-  const y = useTransform(scrollYProgress, [0, 0.3], [100, 0]);
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.95, 1, 1, 0.95]);
+  const rotateX = useTransform(scrollYProgress, [0, 0.5, 1], [5, 0, -5]);
+  const y = useTransform(scrollYProgress, [0, 0.2], [50, 0]);
 
   return (
     <section 
       id={id} 
       ref={ref} 
-      className={`min-h-[90vh] py-8 px-4 md:px-20 flex flex-col justify-center relative ${className}`}
+      className={`min-h-[60vh] py-12 px-4 md:px-20 flex flex-col justify-center relative ${className}`}
     >
       <motion.div
         style={{ opacity, scale, y, rotateX, transformStyle: "preserve-3d" }}
-        className="w-full max-w-7xl mx-auto perspective-1000"
+        className="w-full max-w-7xl mx-auto"
       >
         {children}
       </motion.div>

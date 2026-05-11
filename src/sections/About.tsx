@@ -15,7 +15,7 @@ const skillData = [
 
 const About = () => {
   return (
-    <div className="space-y-12">
+    <div className="space-y-8">
       {/* Introduction */}
       <div className="relative">
         <AnimatedShape

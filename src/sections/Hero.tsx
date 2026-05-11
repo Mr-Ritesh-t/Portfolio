@@ -4,7 +4,7 @@ import Magnetic from '@/components/Magnetic';
 
 const Hero = () => {
   return (
-    <div className="max-w-4xl mx-auto text-center relative min-h-[60vh] flex flex-col justify-center">
+    <div className="max-w-4xl mx-auto text-center relative min-h-[60vh] flex flex-col justify-center pt-20 md:pt-32">
       <NeuralCore />
 
       <div className="relative z-10">
@@ -45,7 +45,7 @@ const Hero = () => {
             </a>
           </Magnetic>
         </div>
-        <div className="mt-20 animate-bounce opacity-20">
+        <div className="mt-12 animate-bounce opacity-20">
           <div className="w-6 h-10 border-2 border-white rounded-full mx-auto relative after:content-[''] after:absolute after:top-2 after:left-1/2 after:-translate-x-1/2 after:w-1 after:h-2 after:bg-white after:rounded-full" />
         </div>
       </div>

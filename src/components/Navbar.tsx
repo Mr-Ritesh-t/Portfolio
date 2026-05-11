@@ -130,6 +130,17 @@ const Navbar: React.FC = () => {
                   {item}
                 </a>
               ))}
+              <button
+                onClick={() => {
+                  playClick();
+                  setIsMenuOpen(false);
+                  window.dispatchEvent(new CustomEvent('toggle-era'));
+                }}
+                className="text-3xl font-medium text-brand-blue hover:text-white transition-colors text-left flex items-center gap-4"
+              >
+                AI ERA
+                <div className="w-3 h-3 bg-brand-blue rounded-full animate-pulse" />
+              </button>
             </nav>
 
             <div className="mt-auto mb-10 bottom-10">
