@@ -4,7 +4,7 @@ import AnimatedShape from '@/components/AnimatedShape';
 
 const Work = () => {
   return (
-    <div className="space-y-20">
+    <div className="space-y-12">
       <div className="relative">
         <AnimatedShape 
           type="triangle" 

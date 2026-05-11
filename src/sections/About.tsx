@@ -15,7 +15,7 @@ const skillData = [
 
 const About = () => {
   return (
-    <div className="space-y-24">
+    <div className="space-y-12">
       {/* Introduction */}
       <div className="relative">
         <AnimatedShape
@@ -40,7 +40,7 @@ const About = () => {
       </div>
 
       {/* Grid: Journey + Education */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div>
           <h2 className="text-3xl font-medium mb-8 flex items-center gap-3">
             <div className="w-8 h-[2px] bg-brand-blue" /> My Journey

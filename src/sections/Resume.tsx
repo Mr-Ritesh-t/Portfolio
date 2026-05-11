@@ -13,8 +13,8 @@ import Magnetic from '@/components/Magnetic';
 
 const Resume = () => {
   return (
-    <div className="max-w-4xl mx-auto space-y-16">
-      <div className="text-center mb-12">
+    <div className="max-w-4xl mx-auto space-y-10">
+      <div className="text-center mb-6">
         <h2 className="text-4xl font-bold mb-4 uppercase tracking-tighter text-white">RESUME</h2>
         <div className="w-20 h-1 bg-brand-blue mx-auto mb-8" />
         <Magnetic>

@@ -25,7 +25,7 @@ const ScrollSection: React.FC<ScrollSectionProps> = ({ children, id, className =
     <section 
       id={id} 
       ref={ref} 
-      className={`min-h-screen py-20 px-4 md:px-20 flex flex-col justify-center relative ${className}`}
+      className={`min-h-[90vh] py-8 px-4 md:px-20 flex flex-col justify-center relative ${className}`}
     >
       <motion.div
         style={{ opacity, scale, y, rotateX, transformStyle: "preserve-3d" }}

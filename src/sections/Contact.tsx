@@ -41,7 +41,7 @@ const Contact = () => {
   });
 
   return (
-    <div className="space-y-16">
+    <div className="space-y-10">
       <div className="max-w-3xl">
         <div className="inline-block px-3 py-1 bg-brand-blue/20 rounded-full text-sm mb-4 text-brand-blue">
           Get in Touch
