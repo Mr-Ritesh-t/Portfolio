@@ -36,7 +36,7 @@ const ShortcutHUD = () => {
 
   return (
     <>
-      <div className="fixed bottom-32 right-8 z-[60] flex flex-col items-end gap-2 pointer-events-none">
+      <div className="fixed bottom-32 right-8 z-[60] hidden md:flex flex-col items-end gap-2 pointer-events-none">
         <div className="bg-brand-black/40 backdrop-blur-md border border-white/10 px-3 py-1 rounded-full flex items-center gap-2">
           <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Hold [ALT] for shortcuts</span>
         </div>

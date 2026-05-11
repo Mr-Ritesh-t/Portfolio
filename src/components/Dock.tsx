@@ -82,7 +82,7 @@ const Dock = () => {
   const mouseX = useMotionValue(Infinity);
 
   return (
-    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] w-full max-w-fit px-4">
+    <div className="hidden md:block fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] w-full max-w-fit px-4">
       <motion.div
         onMouseMove={(e) => mouseX.set(e.clientX)}
         onMouseLeave={() => mouseX.set(Infinity)}
